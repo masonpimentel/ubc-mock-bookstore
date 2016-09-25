@@ -1,6 +1,38 @@
+*, *:after, *:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 body {
     box-sizing: border-box;
     max-width: 1000px;
     margin: 0 auto;
     float: none;
+    font-family: 'Noto Sans', serif;
+}
+
+.grid:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.logo {
+    align-self: center;
+}
+
+.grid2 {
+    width: 200px;
+}
+
+[class*='col-'] {
+    float: left;
+}
+
+.col-30percent {
+    width: 30%;
+}
+.col-70percent {
+    width: 70%;
 }
