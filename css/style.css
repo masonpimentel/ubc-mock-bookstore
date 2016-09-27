@@ -74,11 +74,11 @@ img#logo {
     max-width:100%;
 }
 
-.container {
+.product {
     position: relative;
 }
 
-.container .overlay {
+.product .overlay {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -88,7 +88,7 @@ img#logo {
     color: white;
 }
 
-.container:hover .overlay {
+.product:hover .overlay {
     display: block;
     background: rgba(0,0,0,.5);
 }
