@@ -1,9 +1,4 @@
-*, *:after, *:before {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
+/* max size and center the whole page */
 body {
     box-sizing: border-box;
     max-width: 1000px;
@@ -12,22 +7,17 @@ body {
     font-family: 'Noto Sans', serif;
 }
 
+/* outer grid stuff */
+*, *:after, *:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 .grid:after {
     content: "";
     display: table;
     clear: both;
-}
-
-#table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-img#logo {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px
 }
 
 [class*='col-'] {
@@ -47,16 +37,57 @@ img#logo {
     width: 70%;
 }
 
-.col-33percent {
-    width: 33%;
+.col-100percent {
+    width: 100%;
 }
 
+/* logo */
+img#logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px
+}
 
-#productList * {
+/* banner */
+#welcomeBanner {
     padding: 20px;
-    width: 32%;
 }
 
+/* product list */
+#productList {
+    border: 5px solid blue;
+}
+
+#productList figure {
+    text-align: center;
+    padding: 10px;
+}
+
+#productList figure:hover {
+    background-color: gainsboro;
+}
+
+.container {
+    position: relative;
+}
+
+.container .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    display: none;
+    color: white;
+}
+
+.container:hover .overlay {
+    display: block;
+    background: rgba(0,0,0,.5);
+}
+
+/* navigation menu */
 #navigationMenu li {
     list-style-type: none;
     padding: 8px;
@@ -70,12 +101,11 @@ img#logo {
     background-color: #001f9d;
 }
 
-#welcomeBanner {
-    padding: 20px;
-}
-
+/* footer */
 #footer {
     margin: 20px;
     padding: 10px;
     background-color: gainsboro;
+    border-right: 20px solid white;
+    border-left: 20px solid white;
 }
