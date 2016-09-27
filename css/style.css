@@ -58,7 +58,6 @@ img#logo {
 #productList {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
 
 #productList figure {
@@ -97,7 +96,7 @@ img#logo {
 figure {
     display: inline-block;
     margin-bottom: 8px;
-    width: calc(25% - 6px);
+    width: calc(25% - 22px); /* <-- hacky math - should figure out a way to get rid of this */
 }
 
 /* navigation menu */
@@ -121,4 +120,6 @@ figure {
     background-color: gainsboro;
     border-right: 20px solid white;
     border-left: 20px solid white;
+    text-align: center;
+    font-size: 70%;
 }
