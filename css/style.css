@@ -79,7 +79,7 @@ figure img {
     position: relative;
 }
 
-.product .overlay {
+.product .price {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -89,7 +89,7 @@ figure img {
     color: white;
 }
 
-.product:hover .overlay {
+.product:hover .price {
     display: block;
     background: rgba(0,0,0,.5);
 }

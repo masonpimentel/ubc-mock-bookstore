@@ -1,6 +1,14 @@
 var cart;
 
-var product; //need to initialize this
+var product = {};
+
+//product initialization
+var productList = document.getElementsByClassName("product");
+var productListElement = 0;
+for (var i=0; i<productList.length; i++) {
+    product[productList[i].id] = productList[i].getElementsByClassName("quantity")[0].textContent;
+    productListElement++;
+}
 
 var inactiveTime = 0;
 
