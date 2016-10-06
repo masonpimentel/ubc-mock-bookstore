@@ -58,6 +58,7 @@ img#logo {
 #productList {
     display: flex;
     flex-wrap: wrap;
+    padding-left: 10px;
 }
 
 #productList figure {
