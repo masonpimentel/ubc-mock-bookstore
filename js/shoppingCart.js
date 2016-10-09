@@ -1,4 +1,4 @@
-var cart;
+var cart = {};
 
 var products = {};
 
@@ -19,19 +19,35 @@ function updateQuantity(productName, quantity) {
 }
 
 function addToCart(productName) {
-    var quantity = products[productName] - 1;
-    if (quantity == -1) {
+    var stockQuantity = products[productName] - 1;
+    if (stockQuantity == -1) {
         window.alert("Sorry not in stock!");
         return;
     }
+    //increment productName property in cart
+    if (!cart[productName]) {
+        cart[productName] = 1;
+    }
+    else {
+        cart[productName]++;
+    }
     //update the markup and products object
-    updateQuantity(productName, quantity)
-    window.alert("Adding " + productName + " to cart! Quantity now = " + quantity);
+    updateQuantity(productName, stockQuantity)
+    window.alert("Adding " + productName + " to cart! stockQuantity now = " + stockQuantity +
+        " cartQuantity = " + cart[productName]);
 }
 
 function removeFromCart(productName) {
-    var quantity = products[productName] + 1;
+    //decrement productName property in cart
+    if (!cart[productName]) {
+        window.alert("You haven't added this to your cart yet!");
+        return;
+    }
+    //decrement productName property in cart
+    cart[productName]--;
+    var stockQuantity = products[productName] + 1;
     //update the markup and products object
-    updateQuantity(productName, quantity);   
-    window.alert("Removing " + productName + " from cart! Quantity now = " + quantity);
+    updateQuantity(productName, stockQuantity);
+    window.alert("Removing " + productName + " from cart! stockQuantity now = " + stockQuantity +
+        " cartQuantity = " + cart[productName]);
 }
