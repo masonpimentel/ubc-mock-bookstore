@@ -10,8 +10,6 @@ for (var i=0; i<productList.length; i++) {
     products[productList[i].id] = productList[i].getElementsByClassName("quantity")[0].textContent;
 }
 
-var inactiveTime = 0;
-
 function updateQuantity(productName, quantity) {
     //TODO: question - do we need to update the markup?
     document.getElementById(productName).getElementsByClassName("quantity").innerHTML = quantity;
@@ -35,6 +33,7 @@ function addToCart(productName) {
     updateQuantity(productName, stockQuantity)
     window.alert("Adding " + productName + " to cart! stockQuantity now = " + stockQuantity +
         " cartQuantity = " + cart[productName]);
+    inactiveTime = 0;
 }
 
 function removeFromCart(productName) {
@@ -50,4 +49,9 @@ function removeFromCart(productName) {
     updateQuantity(productName, stockQuantity);
     window.alert("Removing " + productName + " from cart! stockQuantity now = " + stockQuantity +
         " cartQuantity = " + cart[productName]);
+    inactiveTime = 0;
+}
+
+function displayCart() {
+
 }

@@ -54,6 +54,10 @@ img#logo {
     padding: 20px;
 }
 
+#showCart {
+
+}
+
 /* product list */
 #productList {
     display: flex;
