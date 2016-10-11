@@ -37,13 +37,17 @@ function addToCart(productName) {
 }
 
 function removeFromCart(productName) {
-    //decrement productName property in cart
+    //check if the item is even in the cart
     if (!cart[productName]) {
         window.alert("You haven't added this to your cart yet!");
         return;
     }
     //decrement productName property in cart
     cart[productName]--;
+    //should delete the property if quantity in cart is 0
+    if (cart[productName] == 0) {
+        delete cart[productName];
+    }
     var stockQuantity = products[productName] + 1;
     //update the markup and products object
     updateQuantity(productName, stockQuantity);
@@ -53,5 +57,17 @@ function removeFromCart(productName) {
 }
 
 function displayCart() {
-
+    //iterate the number of products
+    var emptyCart = true;
+    var product;
+    for (var i=0; i<productList.length; i++) {
+        product = productList[i].id;
+        if (cart[product]) {
+            emptyCart = false;
+            window.alert("There is " + product);
+        }
+    }
+    if (emptyCart) {
+        window.alert("Cart is empty!");
+    }
 }
