@@ -2,6 +2,10 @@ var cart = {};
 
 var products = {};
 
+var alertMessageQueue = [];
+//this will set displayAlert to check every 5 seconds if there is an alert to send
+setInterval(displayAlert, 5000);
+
 //product initialization
 var productList = document.getElementsByClassName("product");
 for (var i=0; i<productList.length; i++) {
@@ -30,7 +34,7 @@ function addToCart(productName) {
         cart[productName]++;
     }
     //update the markup and products object
-    updateQuantity(productName, stockQuantity)
+    updateQuantity(productName, stockQuantity);
     window.alert("Adding " + productName + " to cart! stockQuantity now = " + stockQuantity +
         " cartQuantity = " + cart[productName]);
     inactiveTime = 0;
@@ -51,23 +55,62 @@ function removeFromCart(productName) {
     var stockQuantity = products[productName] + 1;
     //update the markup and products object
     updateQuantity(productName, stockQuantity);
-    window.alert("Removing " + productName + " from cart! stockQuantity now = " + stockQuantity +
-        " cartQuantity = " + cart[productName]);
+    if (cart[productName]) {
+        window.alert("Removing " + productName + " from cart! stockQuantity now = " + stockQuantity +
+            " cartQuantity = " + cart[productName]);
+    }
+    else {
+        window.alert("Removing " + productName + " from cart! stockQuantity now = " + stockQuantity +
+            " cartQuantity = 0");
+    }
     inactiveTime = 0;
 }
 
+function displayAlert() {
+    //check if the alert queue is not empty
+    if(alertMessageQueue[0]) {
+        window.alert(alertMessageQueue[0]);
+        //shift the queue up
+        alertMessageQueue.shift();
+    }
+}
+
 function displayCart() {
-    //iterate the number of products
     var emptyCart = true;
+    var firstItem = true;
     var product;
+    var itemCount = 0;
+    var alertToQueue;
+    var productQuantity;
+
+    //iterate over the number of products
     for (var i=0; i<productList.length; i++) {
         product = productList[i].id;
+        //check if product is in cart
         if (cart[product]) {
+            itemCount++;
+            //change emptyCart to false if a product is ever found in cart
             emptyCart = false;
-            window.alert("There is " + product);
+            //for this product, determine the quantity
+            productQuantity = cart[product];
+            alertToQueue = "Item " + itemCount + " in cart: " + product + ". Quantity = " + productQuantity + ".\n"
+                + "Note that there will be a 5 second delay until your next alert message.";
+            //display right away if first item in cart
+            if (firstItem) {
+                window.alert(alertToQueue);
+                firstItem = false;
+            }
+            //otherwise put the alert on the queue and set the timeout
+            else {
+                alertMessageQueue[alertMessageQueue.length] = alertToQueue;
+            }
         }
     }
     if (emptyCart) {
         window.alert("Cart is empty!");
+    }
+    //put "end of cart" on message queue
+    else {
+        alertMessageQueue[alertMessageQueue.length] = "End of cart.";
     }
 }
