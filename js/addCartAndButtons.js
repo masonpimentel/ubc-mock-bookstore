@@ -10,7 +10,7 @@ var productName;
 for (var i=0; i<productListInit.length; i++){
     productName = productListInit[i].id;
     //need to get the original template again
-    cart = document.getElementById("cartContainer").innerHTML
+    cart = document.getElementById("cartContainer").innerHTML;
     cart = cart.replace(/productName/g, productName);
     productListInit[i].innerHTML += cart;
 }

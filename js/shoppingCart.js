@@ -1,10 +1,9 @@
+//"queue" for messages - simply use shift() to dequeue
+var alertMessageQueue = [];
+
 var cart = {};
 
 var products = {};
-
-var alertMessageQueue = [];
-//this will set displayAlert to check every 5 seconds if there is an alert to send
-setInterval(displayAlert, 5000);
 
 //product initialization
 var productList = document.getElementsByClassName("product");
@@ -15,7 +14,6 @@ for (var i=0; i<productList.length; i++) {
 }
 
 function updateQuantity(productName, quantity) {
-    //TODO: question - do we need to update the markup?
     document.getElementById(productName).getElementsByClassName("quantity").innerHTML = quantity;
     products[productName] = quantity;
 }
@@ -70,8 +68,14 @@ function displayAlert() {
     //check if the alert queue is not empty
     if(alertMessageQueue[0]) {
         window.alert(alertMessageQueue[0]);
+        var message = alertMessageQueue[0];
         //shift the queue up
         alertMessageQueue.shift();
+        //before returning, set displayAlert to be called again in 5 seconds
+        //unless "End of cart"
+        if (!message.includes("End of cart.")) {
+            setTimeout(displayAlert, 5000);
+        }
     }
 }
 
@@ -110,7 +114,9 @@ function displayCart() {
         window.alert("Cart is empty!");
     }
     //put "end of cart" on message queue
+    //and call displayAlert in 5 seconds
     else {
         alertMessageQueue[alertMessageQueue.length] = "End of cart.";
+        setTimeout(displayAlert, 5000);
     }
 }

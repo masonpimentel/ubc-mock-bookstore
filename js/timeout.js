@@ -1,4 +1,3 @@
-//no multi-threading in JS???
 var inactiveTime = 0;
 var TIMEOUT_SEC = 30;
 
