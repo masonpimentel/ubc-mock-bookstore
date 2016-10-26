@@ -1,0 +1,13 @@
+/* navigation menu */
+#navigationMenu li {
+    list-style-type: none;
+    padding: 8px;
+    margin-bottom: 7px;
+    background-color: #0025d2;
+    color: #ffffff;
+    text-align: center;
+}
+
+#navigationMenu li:hover {
+    background-color: #001f9d;
+}

@@ -1,68 +1,19 @@
-/* max size and center the whole page */
-body {
-    box-sizing: border-box;
-    max-width: 1000px;
-    margin: 0 auto;
-    float: none;
-    font-family: 'Noto Sans', serif;
-}
-
-/* outer grid stuff */
-*, *:after, *:before {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.grid:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-[class*='col-'] {
-    float: left;
-    padding-right: 20px;
-}
-
-[class*='col-']:last-of-type {
-    padding-right: 0;
-}
-
-.col-30percent {
-    width: 30%;
-}
-
-.col-70percent {
-    width: 70%;
-}
-
-.col-100percent {
+/* info bar */
+#infoBar {
     width: 100%;
-}
-
-/* logo */
-img#logo {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px
-}
-
-/* banner */
-#welcomeBanner {
-    padding: 20px;
 }
 
 #showCart {
     position: relative;
+    left: 550px;
     width: 100px;
     height: 30px;
     background-color: darkblue;
     color: white;
     border-radius: 4px;
-    border: none;
+    margin-bottom: 5px;
 }
+
 
 /* product list */
 #productList {
@@ -158,31 +109,6 @@ figure img {
 figure {
     display: inline-block;
     margin-bottom: 8px;
-    width: calc(33% - 22px); /* <-- hacky math - should figure out a way to get rid of this */
+    width: calc(33% - 22px);
     max-height: 230px;
-}
-
-/* navigation menu */
-#navigationMenu li {
-    list-style-type: none;
-    padding: 8px;
-    margin-bottom: 7px;
-    background-color: #0025d2;
-    color: #ffffff;
-    text-align: center;
-}
-
-#navigationMenu li:hover {
-    background-color: #001f9d;
-}
-
-/* footer */
-#footer {
-    margin: 20px;
-    padding: 10px;
-    background-color: gainsboro;
-    border-right: 20px solid white;
-    border-left: 20px solid white;
-    text-align: center;
-    font-size: 70%;
 }

@@ -1,0 +1,11 @@
+/* footer */
+#footer {
+    margin: 20px;
+    padding: 10px;
+    background-color: gainsboro;
+    border-right: 20px solid white;
+    border-left: 20px solid white;
+    text-align: center;
+    font-size: 70%;
+}
+

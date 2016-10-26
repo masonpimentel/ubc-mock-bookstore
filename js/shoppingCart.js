@@ -3,25 +3,8 @@ var alertMessageQueue = [];
 
 var cart = {};
 
-var products = {};
-
-//product initialization
-var productList = document.getElementsByClassName("product");
-for (var i=0; i<productList.length; i++) {
-    //create a new property in products object for each product
-    products[productList[i].id] = {
-        quantity: productList[i].getElementsByClassName("quantity")[0].textContent,
-        price: productList[i].getElementsByClassName("price")[0].textContent
-    }
-}
-
-function updateQuantity(productName, quantity) {
-    document.getElementById(productName).getElementsByClassName("quantity").innerHTML = quantity;
-    products[productName] = quantity;
-}
-
 function addToCart(productName) {
-    var stockQuantity = products[productName] - 1;
+    var stockQuantity = products[productName].quantity - 1;
     if (stockQuantity == -1) {
         window.alert("Sorry not in stock!");
         return;
@@ -34,9 +17,11 @@ function addToCart(productName) {
         cart[productName]++;
     }
     //update the markup and products object
-    updateQuantity(productName, stockQuantity);
+    updateMarkup(productName, stockQuantity);
     window.alert("Adding " + productName + " to cart! stockQuantity now = " + stockQuantity +
         " cartQuantity = " + cart[productName]);
+
+    updateCartButton();
     inactiveTime = 0;
 }
 
@@ -52,9 +37,9 @@ function removeFromCart(productName) {
     if (cart[productName] == 0) {
         delete cart[productName];
     }
-    var stockQuantity = products[productName] + 1;
+    var stockQuantity = products[productName].quantity + 1;
     //update the markup and products object
-    updateQuantity(productName, stockQuantity);
+    updateMarkup(productName, stockQuantity);
     if (cart[productName]) {
         window.alert("Removing " + productName + " from cart! stockQuantity now = " + stockQuantity +
             " cartQuantity = " + cart[productName]);
@@ -63,25 +48,29 @@ function removeFromCart(productName) {
         window.alert("Removing " + productName + " from cart! stockQuantity now = " + stockQuantity +
             " cartQuantity = 0");
     }
+    updateCartButton();
     inactiveTime = 0;
 }
 
-function displayAlert() {
-    //check if the alert queue is not empty
-    if(alertMessageQueue[0]) {
-        window.alert(alertMessageQueue[0]);
-        var message = alertMessageQueue[0];
-        //shift the queue up
-        alertMessageQueue.shift();
-        //before returning, set displayAlert to be called again in 5 seconds
-        //unless "End of cart"
-        if (!message.includes("End of cart.")) {
-            setTimeout(displayAlert, 5000);
-        }
-    }
+function updateCartButton() {
+    var cartString = "Cart ($" + totalCartValue() + ")";
+    document.getElementById("showCart").innerHTML = cartString;
 }
 
-function displayCart() {
+function totalCartValue() {
+    var total = 0;
+    var price;
+    var quantity;
+    for (var cartItem in cart) {
+        price = products[cartItem].price.replace('$', '');
+        price = parseInt(price);
+        quantity = cart[cartItem];
+        total += (price*quantity);
+    }
+    return total;
+}
+
+ function displayCart() {
     var emptyCart = true;
     var firstItem = true;
     var product;
@@ -122,3 +111,22 @@ function displayCart() {
         setTimeout(displayAlert, 5000);
     }
 }
+
+function displayAlert() {
+    //check if the alert queue is not empty
+    if(alertMessageQueue[0]) {
+        window.alert(alertMessageQueue[0]);
+        var message = alertMessageQueue[0];
+        //shift the queue up
+        alertMessageQueue.shift();
+        //before returning, set displayAlert to be called again in 5 seconds
+        //unless "End of cart"
+        if (!message.includes("End of cart.")) {
+            setTimeout(displayAlert, 5000);
+        }
+    }
+}
+
+
+
+

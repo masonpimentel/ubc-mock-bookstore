@@ -1,0 +1,12 @@
+/* logo */
+img#logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px
+}
+
+/* banner */
+#welcomeBanner {
+    padding: 20px;
+}
