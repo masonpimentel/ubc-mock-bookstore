@@ -11,8 +11,8 @@
     <!-- cart container template -->
     <script id="cartContainer" language="text">
         <img src="images\cart.png" alt="cart" class="cart">
-        <button type="button" class="add" onClick="addToCart('productName')">Add</button>
-        <button type="button" class="remove" onClick="removeFromCart('productName')">Remove</button>
+        <button type="button" class="add" id="addId" onClick="addToCart('productName')">Add</button>
+        <button type="button" class="remove" id="removeId" onClick="removeFromCart('productName')">Remove</button>
     </script>
 </head>
 <body>
@@ -38,7 +38,7 @@
             </div>
             <div id="productList" class="col-70percent">
                 <div id="infoBar">
-                    <button id="showCart" type="button" class="add" onClick="displayCart()">Cart</button>
+                    <button id="showCart" type="button" onClick="displayCart()">Cart</button>
                 </div>
                 <figure>
                     <div class="product" id="Box1">
