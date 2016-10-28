@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/main_style.css">
     <link rel="stylesheet" href="css/navigation_style.css">
     <link rel="stylesheet" href="css/products_style.css">
+    <link rel="stylesheet" href="css/modal_style.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto+Sans">
     <!-- cart container template -->
     <script id="cartContainer" language="text">
@@ -151,7 +152,33 @@
         <p>Email: ubc.bookstore@ubc.ca</p>
         <div id="timerString">Timer:<div id="timerVal"></div></div>
     </div>
-    <!-- Start the timer -->
+
+    <!-- modal -->
+    <div id="myModal" class="modal">
+
+        <!-- content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">×</span>
+                <p>Shopping Cart</p>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Item 1<br>
+                    Item 2<br>
+                    Item 3<br>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <p>Checkout button goes here</p>
+            </div>
+        </div>
+
+    </div>
+    <!-- initialize the modal -->
+    <script src="js/shoppingCartModal.js" type="text/javascript"></script>
+
+    <!-- start the timer -->
     <script src="js/timeout.js" type="text/javascript"></script>
 </body>
 </html>
