@@ -76,6 +76,7 @@ function addToCart(productName) {
     }
 
     updateCartButton();
+    refreshModal();
     inactiveTime = 0;
 }
 
@@ -107,6 +108,7 @@ function removeFromCart(productName) {
         }
     }
     updateCartButton();
+    refreshModal();
     inactiveTime = 0;
 }
 

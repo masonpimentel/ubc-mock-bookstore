@@ -5,12 +5,17 @@ function displayCart() {
     inactiveTime = 0;
     modal.style.display = "block";
 
+    refreshModal();
+}
+
+function refreshModal() {
     var emptyCart = true;
     var product;
     var itemCount = 0;
     var productQuantity;
     var productPrice;
     var productName;
+    var list = document.getElementById("modalList");
     //iterate over the number of products
     for (var i=0; i<productList.length; i++) {
         product = productList[i].id;
@@ -26,13 +31,19 @@ function displayCart() {
             //for this product, find the name (caption)
             productName = products[product].caption;
             //remove the cart entry
-            var list = document.getElementById("modalList");
-            var oldCartEntry = document.getElementById("modalEntry" + productName);
+            var oldCartEntry = document.getElementById("modalEntry" + product);
             if (oldCartEntry != null) {
                 list.removeChild(oldCartEntry);
             }
-            //create a new cart entry
-            createCartEntry(true, "modalEntry" + productName, productName, productPrice, productQuantity, product);
+            //create a new cart entry unless quantity is now zero
+            createCartEntry(true, "modalEntry" + product, productName, productPrice, productQuantity, product);
+        }
+        //check to see if the item needs to be removed
+        else {
+            var cartEntry = document.getElementById("modalEntry" + product);
+            if (cartEntry != null) {
+                list.removeChild(cartEntry);
+            }
         }
     }
     if (emptyCart) {
