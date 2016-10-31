@@ -5,25 +5,11 @@ function displayCart() {
     inactiveTime = 0;
     modal.style.display = "block";
 
-    var templateEntry = document.getElementById("modalEntryTemp");
-    var newModalItem = templateEntry.cloneNode(true);
-    newModalItem.style.display = "block";
-    //need to update the id to something unique
-    //need to update name
-    var list = document.getElementById("modalList");
-
-    list.appendChild(newModalItem);
-
-
-
-    /*
     var emptyCart = true;
-    var firstItem = true;
     var product;
     var itemCount = 0;
-    var alertToQueue;
     var productQuantity;
-
+    var productPrice;
     //iterate over the number of products
     for (var i=0; i<productList.length; i++) {
         product = productList[i].id;
@@ -34,43 +20,42 @@ function displayCart() {
             emptyCart = false;
             //for this product, determine the quantity
             productQuantity = cart[product];
-            alertToQueue = "Item " + itemCount + " in cart: " + product + ". Quantity = " + productQuantity + ".\n"
-                + "Note that there will be a 5 second delay until your next alert message.";
+            //for this product, find the price
+            productPrice = product[product].price;
+            //create a string
+            //alertToQueue = "Item " + itemCount + " in cart: " + product + ". Quantity = " + productQuantity + ".\n"
+             //   + "Note that there will be a 5 second delay until your next alert message.";
             //display right away if first item in cart
-            if (firstItem) {
-                window.alert(alertToQueue);
-                firstItem = false;
-            }
-            //otherwise put the alert on the queue and set the timeout
-            else {
-                alertMessageQueue[alertMessageQueue.length] = alertToQueue;
-            }
         }
     }
     if (emptyCart) {
-        window.alert("Cart is empty!");
+        createCartEntry(false);
     }
-    //put "end of cart" on message queue
-    //and call displayAlert in 5 seconds
-    else {
-        alertMessageQueue[alertMessageQueue.length] = "End of cart.";
-        setTimeout(displayAlert, 5000);
-    }
-    */
 }
 
-function displayAlert() {
-    //check if the alert queue is not empty
-    if(alertMessageQueue[0]) {
-        window.alert(alertMessageQueue[0]);
-        var message = alertMessageQueue[0];
-        //shift the queue up
-        alertMessageQueue.shift();
-        //before returning, set displayAlert to be called again in 5 seconds
-        //unless "End of cart"
-        if (!message.includes("End of cart.")) {
-            setTimeout(displayAlert, 5000);
-        }
+function createCartEntry(notEmpty, id, product, price, quantity) {
+    if (notEmpty == false) {
+        var templateEntry = document.getElementById("modalEntryTemp");
+        var newModalItem = templateEntry.cloneNode(true);
+        newModalItem.style.display = "block";
+
+        //need to update the id to something unique
+        newModalItem.id = "cartEmpty";
+        //replace the product name
+        newModalItem.children[0].innerHTML = "Empty cart!";
+        newModalItem.children[0].id = "cartEmptyProduct";
+        //replace the quantity
+        newModalItem.children[1].innerHTML = "";
+        newModalItem.children[1].id = "cartEmptyQuantity";
+        //replace the price
+        newModalItem.children[2].innerHTML = "";
+        newModalItem.children[2].id = "cartEmptyQuantity";
+        //hide the add/remove buttons
+        newModalItem.children[3].style.display = "none";
+        newModalItem.children[4].style.display = "none";
+
+        var list = document.getElementById("modalList");
+        list.appendChild(newModalItem);
     }
 }
 

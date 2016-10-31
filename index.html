@@ -17,15 +17,16 @@
     </script>
     <!-- modal entry template -->
     <div id="modalEntryTemp" style="display: none;">
-        <span class="modalProduct">
+        <!-- important that these nodes stay in this order -->
+        <span class="modalProduct" id="modalProduct">
             Name
         </span>
-        <span class="modalQuantity">
+        <span class="modalQuantity" id="modalQuantity">
             100
         </span>
-        <spen class="modalPrice">
+        <span class="modalPrice" id="modalPrice">
             $1
-        </spen>
+        </span>
         <button class="addModal" type="button" onClick="addToCart()">+</button>
         <button class="removeModal" type="button" onClick="removeFromCart()">-</button>
     </div>
@@ -194,7 +195,7 @@
             <div class="modal-footer">
                 <button id="checkout" type="button">Checkout</button>
                 <span>Total price: </span>
-                <span id="modalPrice">$0</span>
+                <span id="modalPriceTotal">$0</span>
             </div>
         </div>
 
