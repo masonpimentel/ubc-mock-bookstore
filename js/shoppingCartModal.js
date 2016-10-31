@@ -2,7 +2,19 @@ var modal = document.getElementById("myModal");
 var closeButton = document.getElementsByClassName("close")[0];
 
 function displayCart() {
+    inactiveTime = 0;
     modal.style.display = "block";
+
+    var templateEntry = document.getElementById("modalEntryTemp");
+    var newModalItem = templateEntry.cloneNode(true);
+    newModalItem.style.display = "block";
+    //need to update the id to something unique
+    //need to update name
+    var list = document.getElementById("modalList");
+
+    list.appendChild(newModalItem);
+
+
 
     /*
     var emptyCart = true;

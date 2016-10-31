@@ -39,7 +39,7 @@
 .close {
     color: white;
     float: right;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
 }
 
@@ -56,10 +56,59 @@
     color: white;
 }
 
-.modal-body {padding: 2px 16px;}
+.modal-body {
+    padding: 5px 20px;
+
+}
 
 .modal-footer {
-    padding: 2px 16px;
+    padding: 2px 5px;
     background-color: #4c5153;
     color: white;
+}
+
+#checkout {
+    background-color: darkblue;
+    color: white;
+    margin: 10px;
+    height: 30px;
+}
+
+.addModal {
+    position: absolute;
+    right: 300px;
+    background-color: green;
+    color: white;
+    border-radius: 2px;
+    border: none;
+}
+
+.removeModal {
+    position: absolute;
+    right: 280px;
+    background-color: red;
+    color: white;
+    border-radius: 2px;
+    border: none;
+}
+
+.modalQuantity {
+    position: absolute;
+    right: 428px;
+}
+
+#columnItem {
+    font-style: italic;
+}
+
+#columnQuantity {
+    position: absolute;
+    right: 400px;
+    font-style: italic;
+}
+
+#columnAddRemove {
+    position: absolute;
+    right: 255px;
+    font-style: italic;
 }

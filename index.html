@@ -15,8 +15,20 @@
         <button type="button" class="add" id="addId" onClick="addToCart('productName')">Add</button>
         <button type="button" class="remove" id="removeId" onClick="removeFromCart('productName')">Remove</button>
     </script>
+    <!-- modal entry template -->
+    <div id="modalEntryTemp" style="display: none;">
+        <span class="modalProduct">
+            Name
+        </span>
+        <span class="modalQuantity">
+            100
+        </span>
+        <button class="addModal" type="button" onClick="addToCart()">+</button>
+        <button class="removeModal" type="button" onClick="removeFromCart()">-</button>
+    </div>
 </head>
 <body>
+
     <div class="grid">
         <div id="header">
             <div class="col-30percent">
@@ -39,7 +51,7 @@
             </div>
             <div id="productList" class="col-70percent">
                 <div id="infoBar">
-                    <button id="showCart" type="button" onClick="displayCart()">Cart</button>
+                    <button id="showCart" type="button" onClick="displayCart()">Cart ($0)</button>
                 </div>
                 <figure>
                     <div class="product" id="Box1">
@@ -159,18 +171,22 @@
         <!-- content -->
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close">×</span>
+                <span class="close">x</span>
                 <p>Shopping Cart</p>
             </div>
-            <div class="modal-body">
-                <p>
-                    Item 1<br>
-                    Item 2<br>
-                    Item 3<br>
-                </p>
+            <div class="modal-body" id="modalList">
+                <span id="columnItem">
+                    Item
+                </span>
+                <span id="columnQuantity">
+                    Quantity
+                </span>
+                <span id="columnAddRemove">
+                    Add/remove
+                </span>
             </div>
             <div class="modal-footer">
-                <p>Checkout button goes here</p>
+                <button id="checkout" type="button">Checkout</button>
             </div>
         </div>
 
