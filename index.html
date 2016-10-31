@@ -23,6 +23,9 @@
         <span class="modalQuantity">
             100
         </span>
+        <spen class="modalPrice">
+            $1
+        </spen>
         <button class="addModal" type="button" onClick="addToCart()">+</button>
         <button class="removeModal" type="button" onClick="removeFromCart()">-</button>
     </div>
@@ -178,6 +181,9 @@
                 <span id="columnItem">
                     Item
                 </span>
+                <span id="columnPrice">
+                    Price
+                </span>
                 <span id="columnQuantity">
                     Quantity
                 </span>
@@ -187,6 +193,8 @@
             </div>
             <div class="modal-footer">
                 <button id="checkout" type="button">Checkout</button>
+                <span>Total price: </span>
+                <span id="modalPrice">$0</span>
             </div>
         </div>
 

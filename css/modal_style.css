@@ -97,7 +97,18 @@
     right: 428px;
 }
 
+.modalPrice {
+    position: absolute;
+    right: 530px;
+}
+
 #columnItem {
+    font-style: italic;
+}
+
+#columnPrice {
+    position: absolute;
+    right: 525px;
     font-style: italic;
 }
 

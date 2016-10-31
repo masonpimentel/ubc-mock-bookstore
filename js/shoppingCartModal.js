@@ -85,3 +85,10 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 };
+
+//handler for esc key
+document.addEventListener('keyup', function(e) {
+    if (e.keyCode == 27) {
+        modal.style.display = "none";
+    }
+});
