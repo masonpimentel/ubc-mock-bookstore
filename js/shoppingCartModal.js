@@ -10,6 +10,7 @@ function displayCart() {
     var itemCount = 0;
     var productQuantity;
     var productPrice;
+    var productName;
     //iterate over the number of products
     for (var i=0; i<productList.length; i++) {
         product = productList[i].id;
@@ -21,26 +22,37 @@ function displayCart() {
             //for this product, determine the quantity
             productQuantity = cart[product];
             //for this product, find the price
-            productPrice = product[product].price;
-            //create a string
-            //alertToQueue = "Item " + itemCount + " in cart: " + product + ". Quantity = " + productQuantity + ".\n"
-             //   + "Note that there will be a 5 second delay until your next alert message.";
-            //display right away if first item in cart
+            productPrice = products[product].price;
+            //for this product, find the name (caption)
+            productName = products[product].caption;
+            //remove the cart entry
+            var list = document.getElementById("modalList");
+            var oldCartEntry = document.getElementById("modalEntry" + productName);
+            if (oldCartEntry != null) {
+                list.removeChild(oldCartEntry);
+            }
+            //create a new cart entry
+            createCartEntry(true, "modalEntry" + productName, productName, productPrice, productQuantity, product);
         }
     }
     if (emptyCart) {
-        createCartEntry(false);
+        if (!document.getElementById("cartEmpty")) {
+            createCartEntry(false, "cartEmpty");
+        }
     }
+    var modalPriceTotal = document.getElementById("modalPriceTotal");
+    modalPriceTotal.innerHTML = "$" + totalCartValue();
 }
 
-function createCartEntry(notEmpty, id, product, price, quantity) {
-    if (notEmpty == false) {
-        var templateEntry = document.getElementById("modalEntryTemp");
-        var newModalItem = templateEntry.cloneNode(true);
-        newModalItem.style.display = "block";
+function createCartEntry(notEmpty, id, productName, price, quantity, product) {
+    var list = document.getElementById("modalList");
+    var templateEntry = document.getElementById("modalEntryTemp");
+    var newModalItem = templateEntry.cloneNode(true);
+    newModalItem.style.display = "block";
 
+    if (notEmpty == false) {
         //need to update the id to something unique
-        newModalItem.id = "cartEmpty";
+        newModalItem.id = id;
         //replace the product name
         newModalItem.children[0].innerHTML = "Empty cart!";
         newModalItem.children[0].id = "cartEmptyProduct";
@@ -53,10 +65,29 @@ function createCartEntry(notEmpty, id, product, price, quantity) {
         //hide the add/remove buttons
         newModalItem.children[3].style.display = "none";
         newModalItem.children[4].style.display = "none";
-
-        var list = document.getElementById("modalList");
-        list.appendChild(newModalItem);
     }
+    else {
+        //need to update the id to something unique
+        newModalItem.id = id;
+        //replace the product name
+        newModalItem.children[0].innerHTML = productName;
+        newModalItem.children[0].id = "cartProduct" + productName;
+        //replace the quantity
+        newModalItem.children[1].innerHTML = quantity;
+        newModalItem.children[1].id = "cartQuantity" + quantity;
+        //replace the price
+        newModalItem.children[2].innerHTML = price;
+        newModalItem.children[2].id = "cartPrice" + price;
+        //hook in the add/remove buttons
+        newModalItem.children[3].onclick = function() { addToCart(product); };
+        newModalItem.children[4].onclick = function() { removeFromCart(product); };
+        //remove the empty cart entry if there
+        var emptyCartNode = document.getElementById("cartEmpty");
+        if (emptyCartNode != null) {
+            list.removeChild(emptyCartNode);
+        }
+    }
+    list.appendChild(newModalItem);
 }
 
 //to close the modal

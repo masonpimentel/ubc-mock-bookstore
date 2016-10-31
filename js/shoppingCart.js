@@ -4,6 +4,8 @@ var PRODUCTS_STYLESHEET = "products_style.css";
 //"queue" for messages - simply use shift() to dequeue
 var alertMessageQueue = [];
 var cart = {};
+//show debug messages
+var DEBUG = true;
 
 //get the stylesheets
 var sheetsList = document.styleSheets;
@@ -68,8 +70,10 @@ function addToCart(productName) {
     }
     //update the markup and products object
     updateMarkup(productName, stockQuantity);
-    window.alert("Adding " + productName + " to cart! stockQuantity now = " + stockQuantity +
-        " cartQuantity = " + cart[productName]);
+    if (DEBUG) {
+        window.alert("Adding " + productName + " to cart! stockQuantity now = " + stockQuantity +
+            " cartQuantity = " + cart[productName]);
+    }
 
     updateCartButton();
     inactiveTime = 0;
@@ -92,13 +96,15 @@ function removeFromCart(productName) {
     var stockQuantity = products[productName].quantity + 1;
     //update the markup and products object
     updateMarkup(productName, stockQuantity);
-    if (cart[productName]) {
-        window.alert("Removing " + productName + " from cart! stockQuantity now = " + stockQuantity +
-            " cartQuantity = " + cart[productName]);
-    }
-    else {
-        window.alert("Removing " + productName + " from cart! stockQuantity now = " + stockQuantity +
-            " cartQuantity = 0");
+    if (DEBUG) {
+        if (cart[productName]) {
+            window.alert("Removing " + productName + " from cart! stockQuantity now = " + stockQuantity +
+                " cartQuantity = " + cart[productName]);
+        }
+        else {
+            window.alert("Removing " + productName + " from cart! stockQuantity now = " + stockQuantity +
+                " cartQuantity = 0");
+        }
     }
     updateCartButton();
     inactiveTime = 0;
