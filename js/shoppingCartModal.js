@@ -1,6 +1,7 @@
 var modal = document.getElementById("myModal");
 var closeButton = document.getElementsByClassName("close")[0];
 
+//displays the cart modal
 function displayCart() {
     inactiveTime = 0;
     modal.style.display = "block";
@@ -8,20 +9,19 @@ function displayCart() {
     refreshModal();
 }
 
+//refreshes the modal contents
 function refreshModal() {
     var emptyCart = true;
     var product;
-    var itemCount = 0;
     var productQuantity;
     var productPrice;
     var productName;
-    var list = document.getElementById("modalList");
+    var table = document.getElementById("modalTable");
     //iterate over the number of products
     for (var i=0; i<productList.length; i++) {
         product = productList[i].id;
         //check if product is in cart
         if (cart[product]) {
-            itemCount++;
             //change emptyCart to false if a product is ever found in cart
             emptyCart = false;
             //for this product, determine the quantity
@@ -30,19 +30,21 @@ function refreshModal() {
             productPrice = products[product].price;
             //for this product, find the name (caption)
             productName = products[product].caption;
-            //remove the cart entry
             var oldCartEntry = document.getElementById("modalEntry" + product);
+            //if oldCartEntry exists, update it
             if (oldCartEntry != null) {
-                list.removeChild(oldCartEntry);
+                updateCartEntry(productName, productQuantity);
             }
-            //create a new cart entry unless quantity is now zero
-            createCartEntry(true, "modalEntry" + product, productName, productPrice, productQuantity, product);
+            //otherwise, create a new entry
+            else {
+                createCartEntry(true, "modalEntry" + product, productName, productPrice, productQuantity, product);
+            }
         }
         //check to see if the item needs to be removed
         else {
             var cartEntry = document.getElementById("modalEntry" + product);
             if (cartEntry != null) {
-                list.removeChild(cartEntry);
+                table.deleteRow(cartEntry.rowIndex);
             }
         }
     }
@@ -55,50 +57,82 @@ function refreshModal() {
     modalPriceTotal.innerHTML = "$" + totalCartValue();
 }
 
+/* Creates a new cart entry
+ *
+ * params:
+ * notEmpty: if the cart is empty or not
+ * id: id for the new modal table row
+ * productName: what will go in 'item' column
+ * price: what will go in 'price' column
+ * quantity: what will go in the 'quantity' column
+ * product: used to hook in add/remove buttons - used as parameter for addToCart(productName) and
+ *      removeFromCart(productName)
+ */
 function createCartEntry(notEmpty, id, productName, price, quantity, product) {
-    var list = document.getElementById("modalList");
-    var templateEntry = document.getElementById("modalEntryTemp");
-    var newModalItem = templateEntry.cloneNode(true);
-    newModalItem.style.display = "block";
+    var table = document.getElementById("modalTable");
+    var newModalRow = table.insertRow(-1);
+    var itemCell;
+    var quantityCell;
+    var priceCell;
+    var addCell;
+    var removeCell;
+    newModalRow.style.textAlign = "center";
 
+    //add an "empty cart!" message if the cart is empty
     if (notEmpty == false) {
         //need to update the id to something unique
-        newModalItem.id = id;
-        //replace the product name
-        newModalItem.children[0].innerHTML = "Empty cart!";
-        newModalItem.children[0].id = "cartEmptyProduct";
-        //replace the quantity
-        newModalItem.children[1].innerHTML = "";
-        newModalItem.children[1].id = "cartEmptyQuantity";
-        //replace the price
-        newModalItem.children[2].innerHTML = "";
-        newModalItem.children[2].id = "cartEmptyQuantity";
-        //hide the add/remove buttons
-        newModalItem.children[3].style.display = "none";
-        newModalItem.children[4].style.display = "none";
+        newModalRow.id = id;
+        //add the product name
+        itemCell = newModalRow.insertCell(-1);
+        itemCell.textContent = "Empty cart!";
     }
+    //otherwise create a complete row
     else {
         //need to update the id to something unique
-        newModalItem.id = id;
-        //replace the product name
-        newModalItem.children[0].innerHTML = productName;
-        newModalItem.children[0].id = "cartProduct" + productName;
-        //replace the quantity
-        newModalItem.children[1].innerHTML = quantity;
-        newModalItem.children[1].id = "cartQuantity" + quantity;
-        //replace the price
-        newModalItem.children[2].innerHTML = price;
-        newModalItem.children[2].id = "cartPrice" + price;
-        //hook in the add/remove buttons
-        newModalItem.children[3].onclick = function() { addToCart(product); };
-        newModalItem.children[4].onclick = function() { removeFromCart(product); };
+        newModalRow.id = id;
+        //add the product name
+        itemCell = newModalRow.insertCell(-1);
+        itemCell.textContent = productName;
+        itemCell.id = "cartProduct" + productName;
+
+        //add the price
+        priceCell = newModalRow.insertCell(-1);
+        priceCell.textContent = price;
+        priceCell.id = "cartPrice" + productName;
+
+        //add the quantity
+        quantityCell = newModalRow.insertCell(-1);
+        quantityCell.textContent = quantity;
+        quantityCell.id = "cartQuantity" + productName;
+
+        //add the add button
+        addCell = newModalRow.insertCell(-1);
+        var addButton = document.createElement("BUTTON");
+        addButton.appendChild(document.createTextNode("+"));
+        addButton.onclick = function() { addToCart(product); };
+        addButton.className = "addModal";
+        addCell.appendChild(addButton);
+
+        //add the remove button
+        removeCell = newModalRow.insertCell(-1);
+        var removeButton = document.createElement("BUTTON");
+        removeButton.appendChild(document.createTextNode("-"));
+        removeButton.onclick = function() { removeFromCart(product); };
+        removeButton.className = "removeModal";
+        removeCell.appendChild(removeButton);
+
         //remove the empty cart entry if there
         var emptyCartNode = document.getElementById("cartEmpty");
         if (emptyCartNode != null) {
-            list.removeChild(emptyCartNode);
+            table.deleteRow(emptyCartNode.rowIndex);
         }
     }
-    list.appendChild(newModalItem);
+}
+
+//updates the quantity of 'productName' cart entry
+function updateCartEntry(productName, newQuantity) {
+    var quantityCell = document.getElementById("cartQuantity" + productName);
+    quantityCell.textContent = newQuantity;
 }
 
 //to close the modal

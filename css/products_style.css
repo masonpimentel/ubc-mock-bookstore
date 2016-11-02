@@ -102,8 +102,6 @@ figure img {
     display: none;
 }
 
-/* removed .product:hover pseudo-class */
-
 figure {
     display: inline-block;
     margin-bottom: 8px;

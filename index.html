@@ -15,24 +15,8 @@
         <button type="button" class="add" id="addId" onClick="addToCart('productName')">Add</button>
         <button type="button" class="remove" id="removeId" onClick="removeFromCart('productName')">Remove</button>
     </script>
-    <!-- modal entry template -->
-    <div id="modalEntryTemp" style="display: none;">
-        <!-- important that these nodes stay in this order -->
-        <span class="modalProduct" id="modalProduct">
-            Name
-        </span>
-        <span class="modalQuantity" id="modalQuantity">
-            100
-        </span>
-        <span class="modalPrice" id="modalPrice">
-            $1
-        </span>
-        <button class="addModal" type="button" onClick="addToCart()">+</button>
-        <button class="removeModal" type="button" onClick="removeFromCart()">-</button>
-    </div>
 </head>
 <body>
-
     <div class="grid">
         <div id="header">
             <div class="col-30percent">
@@ -57,13 +41,16 @@
                 <div id="infoBar">
                     <button id="showCart" type="button" onClick="displayCart()">Cart ($0)</button>
                 </div>
+                <!-- note: caption can be different from what appears on the page -->
                 <figure>
                     <div class="product" id="Box1">
                         <img src="images\Box1.png" alt="box1">
                         <div class="price">$10</div>
                         <div class="quantity" hidden>100</div>
+                        <!-- this appear in the modal -->
                         <div class="caption" hidden>Clear box</div>
                     </div>
+                    <!-- this appears on the web page -->
                     <figcaption>Clear box</figcaption>
                 </figure>
                 <figure>
@@ -161,7 +148,7 @@
                         <img src="images\Tent.png" alt="tent">
                         <div class="price">$100</div>
                         <div class="quantity" hidden>20</div>
-                        <div class="caption" hidden>Tent/div>
+                        <div class="caption" hidden>Tent</div>
                     </div>
                     <figcaption>Tent</figcaption>
                 </figure>
@@ -190,19 +177,26 @@
                 <span class="close">x</span>
                 <p>Shopping Cart</p>
             </div>
-            <div class="modal-body" id="modalList">
-                <span id="columnItem">
-                    Item
-                </span>
-                <span id="columnPrice">
-                    Price
-                </span>
-                <span id="columnQuantity">
-                    Quantity
-                </span>
-                <span id="columnAddRemove">
-                    Add/remove
-                </span>
+            <div class="modal-body">
+                <table id="modalTable" style="width:100%;">
+                    <tr>
+                        <th id="columnItem">
+                            Item
+                        </th>
+                        <th id="columnPrice">
+                            Price
+                        </th>
+                        <th id="columnQuantity">
+                            Quantity
+                        </th>
+                        <th id="columnAdd">
+                            Add
+                        </th>
+                        <th id="columnRemove">
+                            Remove
+                        </th>
+                    </tr>
+                </table>
             </div>
             <div class="modal-footer">
                 <button id="checkout" type="button">Checkout</button>

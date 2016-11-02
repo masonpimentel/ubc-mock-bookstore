@@ -1,11 +1,9 @@
 //constant for the name of the stylesheet that determines
 //the css for "remove" button
 var PRODUCTS_STYLESHEET = "products_style.css";
-//"queue" for messages - simply use shift() to dequeue
-var alertMessageQueue = [];
 var cart = {};
 //show debug messages
-var DEBUG = true;
+var DEBUG = false;
 
 //get the stylesheets
 var sheetsList = document.styleSheets;
@@ -13,6 +11,7 @@ var sheetsList = document.styleSheets;
 var sheetIndex;
 for (var i=0; i < sheetsList.length; i++) {
     var sheetLink = sheetsList[i].href;
+    //noinspection JSUnresolvedFunction
     if (sheetLink.includes(PRODUCTS_STYLESHEET)) {
         sheetIndex = i;
         break;
@@ -23,6 +22,7 @@ if (!sheetIndex) {
 }
 var productsSheet = document.styleSheets[sheetIndex];
 
+//shows the remove button for when the item is first added to the cart
 function showRemoveButton(productName) {
     var rule = ".product:hover #remove" + productName + " { display: block; background: rgba(255,0,0,.8); }";
     //add rule at index 0
@@ -33,12 +33,14 @@ function showRemoveButton(productName) {
     addButton.style.left = 20;
 }
 
+//hides the remove button for when the item is no longer in the cart
 function hideRemoveButton(productName) {
     //find the rule - temporal locality anyone?
     var rulesList = productsSheet.cssRules;
     for (var i=0; i<rulesList.length; i++) {
         var rule = rulesList[i].cssText;
         var toString = String(rule);
+        //noinspection JSUnresolvedFunction
         if (toString.includes(productName)) {
             //delete the rule
             productsSheet.deleteRule(i);
@@ -53,6 +55,7 @@ function hideRemoveButton(productName) {
     addButton.style.left = 30;
 }
 
+//add 'productName' to cart
 function addToCart(productName) {
     var stockQuantity = products[productName].quantity - 1;
     if (stockQuantity == -1) {
@@ -80,6 +83,7 @@ function addToCart(productName) {
     inactiveTime = 0;
 }
 
+//removes 'productName' from cart
 function removeFromCart(productName) {
     //check if the item is even in the cart
     if (!cart[productName]) {
@@ -112,11 +116,13 @@ function removeFromCart(productName) {
     inactiveTime = 0;
 }
 
+//updates the total dollar value of the cart button
 function updateCartButton() {
     var cartString = "Cart ($" + totalCartValue() + ")";
     document.getElementById("showCart").innerHTML = cartString;
 }
 
+//finds the total dollar value of the cart
 function totalCartValue() {
     var total = 0;
     var price;

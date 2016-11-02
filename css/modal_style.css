@@ -67,6 +67,7 @@
     color: white;
 }
 
+/* checkout button */
 #checkout {
     background-color: darkblue;
     color: white;
@@ -74,52 +75,39 @@
     height: 30px;
 }
 
+/* + button */
 .addModal {
-    position: absolute;
-    right: 300px;
     background-color: green;
     color: white;
     border-radius: 2px;
     border: none;
 }
 
+/* - button */
 .removeModal {
-    position: absolute;
-    right: 280px;
     background-color: red;
     color: white;
     border-radius: 2px;
     border: none;
 }
 
-.modalQuantity {
-    position: absolute;
-    right: 428px;
-}
-
-.modalPrice {
-    position: absolute;
-    right: 535px;
-}
-
+/* modal body table header */
 #columnItem {
-    font-style: italic;
+    width: 56%;
 }
 
 #columnPrice {
-    position: absolute;
-    right: 522px;
-    font-style: italic;
+    width: 15%;
 }
 
 #columnQuantity {
-    position: absolute;
-    right: 400px;
-    font-style: italic;
+    width: 15%;
 }
 
-#columnAddRemove {
-    position: absolute;
-    right: 255px;
-    font-style: italic;
+#columnAdd{
+    width: 7%;
+}
+
+#columnRemove{
+    width: 7%;
 }
