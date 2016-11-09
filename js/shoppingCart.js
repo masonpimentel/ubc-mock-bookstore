@@ -1,9 +1,4 @@
-//constant for the name of the stylesheet that determines
-//the css for "remove" button
-var PRODUCTS_STYLESHEET = "products_style.css";
 var cart = {};
-//show debug messages
-var DEBUG = false;
 
 //get the stylesheets
 var sheetsList = document.styleSheets;
@@ -73,7 +68,7 @@ function addToCart(productName) {
     }
     //update the markup and products object
     updateMarkup(productName, stockQuantity);
-    if (DEBUG) {
+    if (DEBUG_CART_CONTENTS) {
         window.alert("Adding " + productName + " to cart! stockQuantity now = " + stockQuantity +
             " cartQuantity = " + cart[productName]);
     }
@@ -101,7 +96,7 @@ function removeFromCart(productName) {
     var stockQuantity = products[productName].quantity + 1;
     //update the markup and products object
     updateMarkup(productName, stockQuantity);
-    if (DEBUG) {
+    if (DEBUG_CART_CONTENTS) {
         if (cart[productName]) {
             window.alert("Removing " + productName + " from cart! stockQuantity now = " + stockQuantity +
                 " cartQuantity = " + cart[productName]);
