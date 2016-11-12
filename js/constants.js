@@ -1,5 +1,8 @@
-//timeout for AJAX request
+//timeout for AJAX request (ms)
 var REQUEST_TIMEOUT = 1000;
+
+//user timeout
+var TIMEOUT_SEC = 300;
 
 //show debug messages for cart content updates
 var DEBUG_CART_CONTENTS = false;

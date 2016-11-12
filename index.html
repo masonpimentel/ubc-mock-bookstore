@@ -15,6 +15,7 @@
         <button type="button" class="add" id="addId" onClick="addToCart('productName')">Add</button>
         <button type="button" class="remove" id="removeId" onClick="removeFromCart('productName')">Remove</button>
     </script>
+    <script src="js/constants.js" type="text/javascript"></script>
 </head>
 <body>
     <div class="grid">
@@ -45,9 +46,10 @@
                 <figure>
                     <div class="product" id="Box1">
                         <img src="images\Box1.png" alt="box1">
-                        <div class="price">$10</div>
+                        <!-- can replace with a temporary price -->
+                        <div class="price">Loading...</div>
                         <div class="quantity" hidden>100</div>
-                        <!-- this appear in the modal -->
+                        <!-- this appears in the modal -->
                         <div class="caption" hidden>Clear box</div>
                     </div>
                     <!-- this appears on the web page -->
@@ -56,7 +58,7 @@
                 <figure>
                     <div class="product" id="Box2">
                         <img src="images\Box2.png" alt="box2">
-                        <div class="price">$5</div>
+                        <div class="price">Loading...</div>
                         <div class="quantity" hidden>50</div>
                         <div class="caption" hidden>Colored box</div>
                     </div>
@@ -65,7 +67,7 @@
                 <figure>
                     <div class="product" id="Clothes1">
                         <img src="images\Clothes1.png" alt="clothes1">
-                        <div class="price">$20</div>
+                        <div class="price">Loading...</div>
                         <div class="quantity" hidden>25</div>
                         <div class="caption" hidden>Dress</div>
                     </div>
@@ -74,7 +76,7 @@
                 <figure>
                     <div class="product" id="Clothes2">
                         <img src="images\Clothes2.png" alt="clothes2">
-                        <div class="price">$30</div>
+                        <div class="price">Loading...</div>
                         <div class="quantity" hidden>50</div>
                         <div class="caption" hidden>Dye shirt</div>
                     </div>
@@ -83,7 +85,7 @@
                 <figure>
                     <div class="product" id="Jeans">
                         <img src="images\Jeans.png" alt="jeans">
-                        <div class="price">$50</div>
+                        <div class="price">Loading...</div>
                         <div class="quantity" hidden>75</div>
                         <div class="caption" hidden>Jeans</div>
                     </div>
@@ -92,7 +94,7 @@
                 <figure>
                     <div class="product" id="KeyboardCombo">
                         <img src="images\KeyboardCombo.png" alt="keyboardCombo">
-                        <div class="price">$40</div>
+                        <div class="price">Loading...</div>
                         <div class="quantity" hidden>20</div>
                         <div class="caption" hidden>Gaming combo</div>
                     </div>
@@ -101,7 +103,7 @@
                 <figure>
                     <div class="product" id="Keyboard">
                         <img src="images\Keyboard.png" alt="keyboard">
-                        <div class="price">$20</div>
+                        <div class="price">Loading...</div>
                         <div class="quantity" hidden>10</div>
                         <div class="caption" hidden>Mechanical keyboard</div>
                     </div>
@@ -110,7 +112,7 @@
                 <figure>
                     <div class="product" id="Mice">
                         <img src="images\Mice.png" alt="mice">
-                        <div class="price">$20</div>
+                        <div class="price">Loading...</div>
                         <div class="quantity" hidden>25</div>
                         <div class="caption" hidden>Gaming mouse</div>
                     </div>
@@ -119,7 +121,7 @@
                 <figure>
                     <div class="product" id="PC1">
                         <img src="images\PC1.png" alt="pc1">
-                        <div class="price">$350</div>
+                        <div class="price">Loading...</div>
                         <div class="quantity" hidden>20</div>
                         <div class="caption" hidden>Dell computer</div>
                     </div>
@@ -128,7 +130,7 @@
                 <figure>
                     <div class="product" id="PC2">
                         <img src="images\PC2.png" alt="pc2">
-                        <div class="price">$400</div>
+                        <div class="price">Loading...</div>
                         <div class="quantity" hidden>5</div>
                         <div class="caption" hidden>Used Compaq</div>
                     </div>
@@ -137,7 +139,7 @@
                 <figure>
                     <div class="product" id="PC3">
                         <img src="images\PC3.png" alt="pc3">
-                        <div class="price">$300</div>
+                        <div class="price">Loading...</div>
                         <div class="quantity" hidden>15</div>
                         <div class="caption" hidden>Used Dell</div>
                     </div>
@@ -146,7 +148,7 @@
                 <figure>
                     <div class="product" id="Tent">
                         <img src="images\Tent.png" alt="tent">
-                        <div class="price">$100</div>
+                        <div class="price">Loading...</div>
                         <div class="quantity" hidden>20</div>
                         <div class="caption" hidden>Tent</div>
                     </div>
@@ -199,7 +201,7 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button id="checkout" type="button">Checkout</button>
+                <button id="checkout" type="button" onclick="checkout()">Checkout</button>
                 <span>Total price: </span>
                 <span id="modalPriceTotal">$0</span>
             </div>

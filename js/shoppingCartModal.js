@@ -153,3 +153,7 @@ document.addEventListener('keyup', function(e) {
         modal.style.display = "none";
     }
 });
+
+function checkout() {
+    window.alert("Checking out");
+}

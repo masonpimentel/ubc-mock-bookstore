@@ -1,6 +1,15 @@
 var products = {};
 var productsReady = false;
 
+//this is here to initialize each product with "caption" property which comes from the page's markup
+var productList = document.getElementsByClassName("product");
+for (var i=0; i<productList.length; i++) {
+    //create a new property in products object for each product
+    products[productList[i].id] = {
+        caption: productList[i].getElementsByClassName("caption")[0].textContent
+    }
+}
+
 function initProductsAjax() {
     var request = new XMLHttpRequest();
     request.timeout = REQUEST_TIMEOUT;
@@ -14,9 +23,13 @@ function initProductsAjax() {
             if (this.getResponseHeader("Content-type").indexOf('json') > -1) {
                 var result = JSON.parse(this.responseText);
                 for (var item in result) {
-                    //products[item].quantity = item.quantity;
-                    //products[item].price = item.price;
+                    products[item].quantity = result[item].quantity;
+                    products[item].price = result[item].price;
                 }
+                //update markup
+                insertInitialPrices();
+                //show the add buttons
+                showAddButtons();
             }
             else {
                 throw("Response type was not JSON");
@@ -39,7 +52,7 @@ function initProductsAjax() {
     }
     request.ontimeout = function() {
         if (DEBUG_AJAX) {
-            window.alert("Timeout after " + TIMEOUT_SEC + " seconds, retrying.");
+            window.alert("Timeout after " + REQUEST_TIMEOUT + " ms, retrying.");
         }
         initProductsAjax();
     }
@@ -49,17 +62,18 @@ function initProductsAjax() {
 //product initialization
 initProductsAjax();
 
-var productList = document.getElementsByClassName("product");
-for (var i=0; i<productList.length; i++) {
-    //create a new property in products object for each product
-    products[productList[i].id] = {
-        //quantity: productList[i].getElementsByClassName("quantity")[0].textContent,
-        //price: productList[i].getElementsByClassName("price")[0].textContent,
-        caption: productList[i].getElementsByClassName("caption")[0].textContent
-    }
+function updateProducts(productName, quantity) {
+    products[productName].quantity = quantity;
 }
 
-function updateMarkup(productName, quantity) {
-    document.getElementById(productName).getElementsByClassName("quantity").innerHTML = quantity;
-    products[productName].quantity = quantity;
+//this inserts all the prices into the page markup
+//should be called right after initial AJAX request succeeds
+function insertInitialPrices() {
+    var price;
+
+    var productsList = document.getElementsByClassName("product");
+    for (var i=0; i<productsList.length; i++){
+        price = productsList[i].getElementsByClassName("price")[0];
+        price.textContent = "$" + products[productsList[i].id].price;
+    }
 }

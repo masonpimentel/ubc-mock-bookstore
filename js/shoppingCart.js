@@ -17,6 +17,13 @@ if (!sheetIndex) {
 }
 var productsSheet = document.styleSheets[sheetIndex];
 
+//shows the add buttons after the initial AJAX request is completed
+function showAddButtons() {
+    var rule = ".product:hover .add { display: block; background: rgba(0,128,0,.8); }";
+    //add rule at index 0
+    productsSheet.insertRule(rule, 0);
+}
+
 //shows the remove button for when the item is first added to the cart
 function showRemoveButton(productName) {
     var rule = ".product:hover #remove" + productName + " { display: block; background: rgba(255,0,0,.8); }";
@@ -33,6 +40,8 @@ function hideRemoveButton(productName) {
     //find the rule - temporal locality anyone?
     var rulesList = productsSheet.cssRules;
     for (var i=0; i<rulesList.length; i++) {
+        //CHROME BUG: https://bugs.chromium.org/p/chromium/issues/detail?id=143626
+        //works in Firefox, asking if this should be addressed, or just run in Firefox
         var rule = rulesList[i].cssText;
         var toString = String(rule);
         //noinspection JSUnresolvedFunction
@@ -66,8 +75,8 @@ function addToCart(productName) {
     else {
         cart[productName]++;
     }
-    //update the markup and products object
-    updateMarkup(productName, stockQuantity);
+    //update products
+    updateProducts(productName, stockQuantity);
     if (DEBUG_CART_CONTENTS) {
         window.alert("Adding " + productName + " to cart! stockQuantity now = " + stockQuantity +
             " cartQuantity = " + cart[productName]);
@@ -94,8 +103,8 @@ function removeFromCart(productName) {
         hideRemoveButton(productName);
     }
     var stockQuantity = products[productName].quantity + 1;
-    //update the markup and products object
-    updateMarkup(productName, stockQuantity);
+    //update products
+    updateProducts(productName, stockQuantity);
     if (DEBUG_CART_CONTENTS) {
         if (cart[productName]) {
             window.alert("Removing " + productName + " from cart! stockQuantity now = " + stockQuantity +
@@ -123,7 +132,7 @@ function totalCartValue() {
     var price;
     var quantity;
     for (var cartItem in cart) {
-        price = products[cartItem].price.replace('$', '');
+        price = products[cartItem].price;
         price = parseInt(price);
         quantity = cart[cartItem];
         total += (price*quantity);

@@ -1,5 +1,4 @@
 var inactiveTime = 0;
-var TIMEOUT_SEC = 300;
 
 document.getElementById("timerVal").style.color = "green";
 document.getElementById("timerVal").innerHTML = String(TIMEOUT_SEC);
