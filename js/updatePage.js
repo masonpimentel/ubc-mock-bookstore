@@ -65,18 +65,28 @@ function addProductToPage(id, imgsrc, price, figcaption) {
     productList.appendChild(newProduct);
 }
 
+function createCssRule(rule, id) {
+    var css = document.createElement("style");
+    css.type = "text/css";
+    css.textContent = rule;
+    if (id) {
+        css.id = id;
+    }
+
+    return css;
+}
+
 //shows the add buttons after the initial AJAX request is completed
 function showAddButtons() {
-    var rule = ".product:hover .add { display: block; background: rgba(0,128,0,.8); }";
-    //add rule at index 0
-    productsSheet.insertRule(rule, 0);
+    var rule = createCssRule(".product:hover .add { display: block; background: rgba(0,128,0,.8); }");
+    document.head.appendChild(rule);
 }
 
 //shows the remove button for when the item is first added to the cart
 function showRemoveButton(productName) {
-    var rule = ".product:hover #remove" + productName + " { display: block; background: rgba(255,0,0,.8); }";
-    //add rule at index 0
-    productsSheet.insertRule(rule, 0);
+    var rule = createCssRule(".product:hover #remove" + productName + " { display: block; background: " +
+        "rgba(255,0,0,.8); }", "remove" + productName);
+    document.head.appendChild(rule);
     //modify style for productName's add button
     var addButton = document.getElementById("add" + productName);
     addButton.style.width = 70;
@@ -85,22 +95,14 @@ function showRemoveButton(productName) {
 
 //hides the remove button for when the item is no longer in the cart
 function hideRemoveButton(productName) {
-    //find the rule - temporal locality anyone?
-    var rulesList = productsSheet.cssRules;
-    for (var i=0; i<rulesList.length; i++) {
-        //CHROME BUG: https://bugs.chromium.org/p/chromium/issues/detail?id=143626
-        //works in Firefox, asking if this should be addressed, or just run in Firefox
-        var rule = rulesList[i].cssText;
-        var toString = String(rule);
-        //noinspection JSUnresolvedFunction
-        if (toString.includes(productName)) {
-            //delete the rule
-            productsSheet.deleteRule(i);
-            //hopefully temporal locality by assuming the user recently added the item
-            //will be sufficient for runtime considerations
-            break;
-        }
-    }
+    /*
+     * Workaround for the Chrome bug!!
+     * Instead of using cssText, just find the element which is added to document.head
+     * This is much cleaner and how it should have been done in the first place...
+     */
+    var removeRule = document.getElementById("remove" + productName);
+    removeRule.parentNode.removeChild(removeRule);
+
     //modify style for productName's add button
     var addButton = document.getElementById("add" + productName);
     addButton.style.width = 130;
