@@ -12,37 +12,32 @@ function displayCart() {
 //refreshes the modal contents
 function refreshModal() {
     var emptyCart = true;
-    var product;
     var productQuantity;
     var productPrice;
-    var productName;
     var table = document.getElementById("modalTable");
     //iterate over the number of products
-    for (var i=0; i<productList.length; i++) {
-        product = productList[i].id;
+    for (var item in products) {
         //check if product is in cart
-        if (cart[product]) {
+        if (cart[item]) {
             //change emptyCart to false if a product is ever found in cart
             emptyCart = false;
             //for this product, determine the quantity
-            productQuantity = cart[product];
+            productQuantity = cart[item];
             //for this product, find the price
-            productPrice = products[product].price;
-            //for this product, find the name (caption)
-            productName = products[product].caption;
-            var oldCartEntry = document.getElementById("modalEntry" + product);
+            productPrice = products[item].price;
+            var oldCartEntry = document.getElementById("modalEntry" + item);
             //if oldCartEntry exists, update it
             if (oldCartEntry != null) {
-                updateCartEntry(productName, productQuantity);
+                updateCartEntry(item, productQuantity);
             }
             //otherwise, create a new entry
             else {
-                createCartEntry(true, "modalEntry" + product, productName, productPrice, productQuantity, product);
+                createCartEntry(true, "modalEntry" + item, item, productPrice, productQuantity, item);
             }
         }
         //check to see if the item needs to be removed
         else {
-            var cartEntry = document.getElementById("modalEntry" + product);
+            var cartEntry = document.getElementById("modalEntry" + item);
             if (cartEntry != null) {
                 table.deleteRow(cartEntry.rowIndex);
             }
@@ -54,7 +49,7 @@ function refreshModal() {
         }
     }
     var modalPriceTotal = document.getElementById("modalPriceTotal");
-    modalPriceTotal.innerHTML = "$" + totalCartValue();
+    modalPriceTotal.textContent = "$" + totalCartValue();
 }
 
 /* Creates a new cart entry

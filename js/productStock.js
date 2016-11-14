@@ -1,16 +1,65 @@
 var products = {};
-var productsReady = false;
 
-//this is here to initialize each product with "caption" property which comes from the page's markup
-var productList = document.getElementsByClassName("product");
-for (var i=0; i<productList.length; i++) {
-    //create a new property in products object for each product
-    products[productList[i].id] = {
-        caption: productList[i].getElementsByClassName("caption")[0].textContent
+//used for the initial AJAX request for quantity and price information
+function initProductsAjax() {
+    var request = new XMLHttpRequest();
+    request.timeout = REQUEST_TIMEOUT;
+    request.open("GET", "https://cpen400a.herokuapp.com/products");
+    request.onload = function () {
+        if (this.status == 200) {
+            if (DEBUG_AJAX) {
+                window.alert("AJAX request success!");
+            }
+            //check if response is JSON - lecture example doesn't work so did it like this
+            if (this.getResponseHeader("Content-type").indexOf('json') > -1) {
+                var result = JSON.parse(this.responseText);
+                for (var item in result) {
+                    products[item] = {
+                        //create quantity and price properties for each product
+                        quantity: result[item].quantity,
+                        price: result[item].price
+                    }
+                    //add the product to the web page
+                    addProductToPage(item, result[item].url, result[item].price, item);
+                }
+                //apply the cart container (add the cart overlay and add button)
+                applyCartContainer()
+                //show the add buttons
+                showAddButtons();
+                //remove the "please wait"
+                var wait = document.getElementById("pleaseWait");
+                wait.style.display = "none";
+            }
+            else {
+                throw("Response type was not JSON");
+            }
+        }
+        else {
+            if (DEBUG_AJAX) {
+                window.alert("Error " + this.status + ", retrying.");
+            }
+            initProductsAjax();
+        }
     }
+    request.onerror = function() {
+        if (DEBUG_AJAX) {
+            window.alert("Error " + this.status + ", retrying.");
+        }
+        initProductsAjax();
+    }
+    request.ontimeout = function() {
+        if (DEBUG_AJAX) {
+            window.alert("Timeout after " + REQUEST_TIMEOUT + " ms, retrying.");
+        }
+        initProductsAjax();
+    }
+    request.send();
 }
 
-function initProductsAjax() {
+//product initialization
+initProductsAjax();
+
+function updateProductsAjax() {
     var request = new XMLHttpRequest();
     request.timeout = REQUEST_TIMEOUT;
     request.open("GET", "https://cpen400a.herokuapp.com/products");
@@ -34,33 +83,28 @@ function initProductsAjax() {
             else {
                 throw("Response type was not JSON");
             }
-            productsReady = true;
         }
         else {
             if (DEBUG_AJAX) {
                 window.alert("Error " + this.status + ", retrying.");
             }
-            //setTimeout(function(){initProductsAjax()}, 500);
-            initProductsAjax();
+            updateProductsAjax();
         }
     }
     request.onerror = function() {
         if (DEBUG_AJAX) {
             window.alert("Error " + this.status + ", retrying.");
         }
-        initProductsAjax();
+        updateProductsAjax();
     }
     request.ontimeout = function() {
         if (DEBUG_AJAX) {
             window.alert("Timeout after " + REQUEST_TIMEOUT + " ms, retrying.");
         }
-        initProductsAjax();
+        updateProductsAjax();
     }
     request.send();
 }
-
-//product initialization
-initProductsAjax();
 
 function updateProducts(productName, quantity) {
     products[productName].quantity = quantity;

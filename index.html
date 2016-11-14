@@ -16,6 +16,7 @@
         <button type="button" class="remove" id="removeId" onClick="removeFromCart('productName')">Remove</button>
     </script>
     <script src="js/constants.js" type="text/javascript"></script>
+    <script src="js/updatePage.js" type="text/javascript"></script>
 </head>
 <body>
     <div class="grid">
@@ -42,121 +43,10 @@
                 <div id="infoBar">
                     <button id="showCart" type="button" onClick="displayCart()">Cart ($0)</button>
                 </div>
-                <!-- note: caption can be different from what appears on the page -->
-                <figure>
-                    <div class="product" id="Box1">
-                        <img src="images\Box1.png" alt="box1">
-                        <!-- can replace with a temporary price -->
-                        <div class="price">Loading...</div>
-                        <div class="quantity" hidden>100</div>
-                        <!-- this appears in the modal -->
-                        <div class="caption" hidden>Clear box</div>
-                    </div>
-                    <!-- this appears on the web page -->
-                    <figcaption>Clear box</figcaption>
-                </figure>
-                <figure>
-                    <div class="product" id="Box2">
-                        <img src="images\Box2.png" alt="box2">
-                        <div class="price">Loading...</div>
-                        <div class="quantity" hidden>50</div>
-                        <div class="caption" hidden>Colored box</div>
-                    </div>
-                    <figcaption>Colored box</figcaption>
-                </figure>
-                <figure>
-                    <div class="product" id="Clothes1">
-                        <img src="images\Clothes1.png" alt="clothes1">
-                        <div class="price">Loading...</div>
-                        <div class="quantity" hidden>25</div>
-                        <div class="caption" hidden>Dress</div>
-                    </div>
-                    <figcaption>Dress</figcaption>
-                </figure>
-                <figure>
-                    <div class="product" id="Clothes2">
-                        <img src="images\Clothes2.png" alt="clothes2">
-                        <div class="price">Loading...</div>
-                        <div class="quantity" hidden>50</div>
-                        <div class="caption" hidden>Dye shirt</div>
-                    </div>
-                    <figcaption>Dye shirt</figcaption>
-                </figure>
-                <figure>
-                    <div class="product" id="Jeans">
-                        <img src="images\Jeans.png" alt="jeans">
-                        <div class="price">Loading...</div>
-                        <div class="quantity" hidden>75</div>
-                        <div class="caption" hidden>Jeans</div>
-                    </div>
-                    <figcaption>Jeans</figcaption>
-                </figure>
-                <figure>
-                    <div class="product" id="KeyboardCombo">
-                        <img src="images\KeyboardCombo.png" alt="keyboardCombo">
-                        <div class="price">Loading...</div>
-                        <div class="quantity" hidden>20</div>
-                        <div class="caption" hidden>Gaming combo</div>
-                    </div>
-                    <figcaption>Gaming combo</figcaption>
-                </figure>
-                <figure>
-                    <div class="product" id="Keyboard">
-                        <img src="images\Keyboard.png" alt="keyboard">
-                        <div class="price">Loading...</div>
-                        <div class="quantity" hidden>10</div>
-                        <div class="caption" hidden>Mechanical keyboard</div>
-                    </div>
-                    <figcaption>Mechanical keyboard</figcaption>
-                </figure>
-                <figure>
-                    <div class="product" id="Mice">
-                        <img src="images\Mice.png" alt="mice">
-                        <div class="price">Loading...</div>
-                        <div class="quantity" hidden>25</div>
-                        <div class="caption" hidden>Gaming mouse</div>
-                    </div>
-                    <figcaption>Gaming mouse</figcaption>
-                </figure>
-                <figure>
-                    <div class="product" id="PC1">
-                        <img src="images\PC1.png" alt="pc1">
-                        <div class="price">Loading...</div>
-                        <div class="quantity" hidden>20</div>
-                        <div class="caption" hidden>Dell computer</div>
-                    </div>
-                    <figcaption>Dell computer</figcaption>
-                </figure>
-                <figure>
-                    <div class="product" id="PC2">
-                        <img src="images\PC2.png" alt="pc2">
-                        <div class="price">Loading...</div>
-                        <div class="quantity" hidden>5</div>
-                        <div class="caption" hidden>Used Compaq</div>
-                    </div>
-                    <figcaption>Used Compaq</figcaption>
-                </figure>
-                <figure>
-                    <div class="product" id="PC3">
-                        <img src="images\PC3.png" alt="pc3">
-                        <div class="price">Loading...</div>
-                        <div class="quantity" hidden>15</div>
-                        <div class="caption" hidden>Used Dell</div>
-                    </div>
-                    <figcaption>Used Dell</figcaption>
-                </figure>
-                <figure>
-                    <div class="product" id="Tent">
-                        <img src="images\Tent.png" alt="tent">
-                        <div class="price">Loading...</div>
-                        <div class="quantity" hidden>20</div>
-                        <div class="caption" hidden>Tent</div>
-                    </div>
-                    <figcaption>Tent</figcaption>
-                </figure>
-                <!-- This is to add cartContainer to the rest of the products -->
-                <script src="js/addCartAndButtons.js" type="text/javascript"></script>
-                <!-- This is here so product object is initialized at the right time -->
+                <!-- this is removed after the page is loaded -->
+                <p id="pleaseWait">
+                    Please wait as the page is loaded...
+                </p>
                 <script src="js/shoppingCart.js" type="text/javascript"></script>
                 <script src="js/productStock.js" type="text/javascript"></script>
             </div>

@@ -84,13 +84,6 @@ figure img {
     width: 130px;
 }
 
-/*
-.product:hover .add {
-    display: block;
-    background: rgba(0,128,0,.8);
-}
-*/
-
 .product .remove {
     position: absolute;
     left: 100px;
