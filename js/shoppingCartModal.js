@@ -149,6 +149,33 @@ document.addEventListener('keyup', function(e) {
     }
 });
 
+function showLoading() {
+    //make loader and text visible
+    var loader = document.getElementById("cartLoader");
+    loader.style.display = "block";
+    var loaderText = document.getElementById("loadingMessage");
+    loaderText.style.display = "block";
+    //hide price
+    var text = document.getElementById("totalPrice");
+    text.style.display = "none";
+    var price = document.getElementById("modalPriceTotal");
+    price.style.display = "none";
+    setTimeout(hideLoading, 2000);
+}
+
+function hideLoading() {
+    var loader = document.getElementById("cartLoader");
+    loader.style.display = "none";
+    var loaderText = document.getElementById("loadingMessage");
+    loaderText.style.display = "none";
+    var text = document.getElementById("totalPrice");
+    text.style.display = "inline";
+    var price = document.getElementById("modalPriceTotal");
+    price.style.display = "inline";
+}
+
 function checkout() {
-    window.alert("Checking out");
+    showLoading();
+    //another AJAX request
+    //compare differences
 }

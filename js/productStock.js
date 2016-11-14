@@ -4,7 +4,7 @@ var products = {};
 function initProductsAjax() {
     var request = new XMLHttpRequest();
     request.timeout = REQUEST_TIMEOUT;
-    request.open("GET", "https://cpen400a.herokuapp.com/products");
+    request.open("GET", AJAX_URL);
     request.onload = function () {
         if (this.status == 200) {
             if (DEBUG_AJAX) {
@@ -62,7 +62,7 @@ initProductsAjax();
 function updateProductsAjax() {
     var request = new XMLHttpRequest();
     request.timeout = REQUEST_TIMEOUT;
-    request.open("GET", "https://cpen400a.herokuapp.com/products");
+    request.open("GET", AJAX_URL);
     request.onload = function () {
         if (this.status == 200) {
             if (DEBUG_AJAX) {
@@ -79,6 +79,7 @@ function updateProductsAjax() {
                 insertInitialPrices();
                 //show the add buttons
                 showAddButtons();
+                //hide the loader again - check if it's there
             }
             else {
                 throw("Response type was not JSON");

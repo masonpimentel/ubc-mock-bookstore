@@ -103,3 +103,14 @@ figure {
     width: calc(33% - 22px);
     max-height: 230px;
 }
+
+#productsLoader {
+    border: 10px solid #f3f3f3; /* Light grey */
+    border-top: 10px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    padding: 20px;
+    animation: spin 2s linear infinite;
+}
+
