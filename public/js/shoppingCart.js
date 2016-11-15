@@ -34,7 +34,7 @@ function addToCart(productName) {
         cart[productName]++;
     }
     //update products
-    updateProducts(productName, stockQuantity);
+    updateProductQuantity(productName, stockQuantity);
     if (DEBUG_CART_CONTENTS) {
         window.alert("Adding " + productName + " to cart! stockQuantity now = " + stockQuantity +
             " cartQuantity = " + cart[productName]);
@@ -62,7 +62,7 @@ function removeFromCart(productName) {
     }
     var stockQuantity = products[productName].quantity + 1;
     //update products
-    updateProducts(productName, stockQuantity);
+    updateProductQuantity(productName, stockQuantity);
     if (DEBUG_CART_CONTENTS) {
         if (cart[productName]) {
             window.alert("Removing " + productName + " from cart! stockQuantity now = " + stockQuantity +
@@ -82,6 +82,13 @@ function removeFromCart(productName) {
 function updateCartButton() {
     var cartString = "Cart ($" + totalCartValue() + ")";
     document.getElementById("showCart").innerHTML = cartString;
+}
+
+function clearCartAndRemoveButtons() {
+    for (var product in cart) {
+        hideRemoveButton(product);
+        delete cart[product];
+    }
 }
 
 //finds the total dollar value of the cart

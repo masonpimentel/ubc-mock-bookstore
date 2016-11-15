@@ -85,23 +85,33 @@ function updateRequest(result) {
         var oldPrice = products[item].price;
         var newPrice = result[item].price;
 
+        if (oldQuantity != newQuantity) {
+            updateProductQuantity(item, newQuantity);
+        }
+        if (oldPrice != newPrice) {
+            updateProductPrice(item, newPrice);
+        }
+
         if (cart[item]) {
             numItems++;
             if (oldQuantity != newQuantity) {
                 //alert user if no longer in stock
                 if (newQuantity == 0) {
                     window.alert("OS");
-                    res = window.confirm("Sorry, " + item + " is no longer in stock. This item will be removed" +
+                    res = window.confirm("Sorry, " + item + " is no longer in stock. This item will be removed " +
                         "from your cart. Click on OK to continue, or Cancel to cancel purchase.");
                     if (res == false) {
                         window.alert("Purchase cancelled.");
                         hideLoading();
                         break;
                     }
+                    inactiveTime = 0;
+                    cart[item] = newQuantity;
+                    refreshModal();
                 }
                 //alert user if new quantity is less than what the user wants
                 if (newQuantity < cart[item]) {
-                    window.alert(item + "," + oldQuantity + "," + newQuantity);
+                    window.alert("Q " + item + "," + oldQuantity + "," + newQuantity);
                     res = window.confirm("Sorry, " + item + " is no longer in enough quantity to " +
                         "fulfill your " + "purchase. Your quantity will be updated from " + oldQuantity +
                         " to " + newQuantity + ". Click on OK to continue, or Cancel to cancel purchase.");
@@ -110,15 +120,14 @@ function updateRequest(result) {
                         hideLoading();
                         break;
                     }
-                    //update cart
+                    inactiveTime = 0;
                     cart[item] = newQuantity;
+                    refreshModal();
                 }
-
-                //update page
             }
             if (oldPrice != newPrice) {
                 //if so, update cart
-                window.alert(item + "," + oldPrice + "," + newPrice);
+                window.alert("P" + item + "," + oldPrice + "," + newPrice);
                 res = window.confirm("Please note that the price for " + item + " has changed, it was $" +  oldPrice
                     + " but now it is $" + newPrice + ". Click on OK to continue, or Cancel to cancel purchase.");
                 if (res == false) {
@@ -126,32 +135,27 @@ function updateRequest(result) {
                     hideLoading();
                     break;
                 }
-                //update page
+                inactiveTime = 0;
+                refreshModal();
             }
         }
     }
+    hideLoading();
     if (numItems == 0) {
         window.alert("Cart is empty.");
-        hideLoading();
     }
     if (res && numItems > 0) {
-        window.alert("Purchase complete! Thank you.");
-        hideLoading();
+        window.alert("Please review your cart before completing.");
+        showComplete();
     }
 }
 
-function updateProducts(productName, quantity) {
+function updateProductQuantity(productName, quantity) {
     products[productName].quantity = quantity;
 }
 
-//this inserts all the prices into the page markup
-//should be called right after initial AJAX request succeeds
-function insertInitialPrices() {
-    var price;
-
-    var productsList = document.getElementsByClassName("product");
-    for (var i=0; i<productsList.length; i++){
-        price = productsList[i].getElementsByClassName("price")[0];
-        price.textContent = "$" + products[productsList[i].id].price;
-    }
+function updateProductPrice(productName, price) {
+    products[productName].price = price;
+    //update the page
+    updateProductPriceOnPage(productName, price);
 }

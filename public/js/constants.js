@@ -8,7 +8,7 @@ var TIMEOUT_SEC = 300;
 var DEBUG_CART_CONTENTS = false;
 
 //show debug messages for AJAX request
-var DEBUG_AJAX = false;
+var DEBUG_AJAX = true;
 
 //constant for the name of the stylesheet that determines
 //the css for "remove" button

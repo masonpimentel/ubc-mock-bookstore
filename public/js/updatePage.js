@@ -65,6 +65,12 @@ function addProductToPage(id, imgsrc, price, figcaption) {
     productList.appendChild(newProduct);
 }
 
+function updateProductPriceOnPage(id, priceValue) {
+    var product = document.getElementById(id);
+    var price = product.getElementsByClassName("price")[0];
+    price.textContent = "$" + priceValue;
+}
+
 function createCssRule(rule, id) {
     var css = document.createElement("style");
     css.type = "text/css";

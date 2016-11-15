@@ -76,6 +76,14 @@
     height: 30px;
 }
 
+#complete {
+    float: right;
+    margin: 0;
+    background-color: green;
+    color: white;
+    height: 30px;
+}
+
 /* + button */
 .addModal {
     background-color: green;
