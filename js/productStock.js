@@ -97,7 +97,6 @@ function updateRequest(result) {
             if (oldQuantity != newQuantity) {
                 //alert user if no longer in stock
                 if (newQuantity == 0) {
-                    window.alert("OS");
                     res = window.confirm("Sorry, " + item + " is no longer in stock. This item will be removed " +
                         "from your cart. Click on OK to continue, or Cancel to cancel purchase.");
                     if (res == false) {
@@ -111,7 +110,6 @@ function updateRequest(result) {
                 }
                 //alert user if new quantity is less than what the user wants
                 if (newQuantity < cart[item]) {
-                    window.alert("Q " + item + "," + oldQuantity + "," + newQuantity);
                     res = window.confirm("Sorry, " + item + " is no longer in enough quantity to " +
                         "fulfill your " + "purchase. Your quantity will be updated from " + oldQuantity +
                         " to " + newQuantity + ". Click on OK to continue, or Cancel to cancel purchase.");
@@ -127,7 +125,6 @@ function updateRequest(result) {
             }
             if (oldPrice != newPrice) {
                 //if so, update cart
-                window.alert("P" + item + "," + oldPrice + "," + newPrice);
                 res = window.confirm("Please note that the price for " + item + " has changed, it was $" +  oldPrice
                     + " but now it is $" + newPrice + ". Click on OK to continue, or Cancel to cancel purchase.");
                 if (res == false) {
