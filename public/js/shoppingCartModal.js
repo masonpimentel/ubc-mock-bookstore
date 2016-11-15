@@ -160,10 +160,13 @@ function showLoading() {
     text.style.display = "none";
     var price = document.getElementById("modalPriceTotal");
     price.style.display = "none";
-    setTimeout(hideLoading, 2000);
 }
 
 function hideLoading() {
+    if (document.getElementById("loadingMessage").style.display == "none" ||
+        document.getElementById("cartLoader").style.display == "none") {
+        throw("Loader disappeared.")
+    }
     var loader = document.getElementById("cartLoader");
     loader.style.display = "none";
     var loaderText = document.getElementById("loadingMessage");
@@ -177,5 +180,6 @@ function hideLoading() {
 function checkout() {
     showLoading();
     //another AJAX request
+    ajaxRequest("update");
     //compare differences
 }
