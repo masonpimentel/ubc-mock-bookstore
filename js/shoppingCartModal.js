@@ -151,6 +151,7 @@ document.addEventListener('keyup', function(e) {
     }
 });
 
+//show the modal loader
 function showLoading() {
     //make loader and text visible
     var loader = document.getElementById("cartLoader");
@@ -164,6 +165,7 @@ function showLoading() {
     price.style.display = "none";
 }
 
+//hide the modal loader
 function hideLoading() {
     if (document.getElementById("loadingMessage").style.display == "none" ||
         document.getElementById("cartLoader").style.display == "none") {
@@ -179,24 +181,28 @@ function hideLoading() {
     price.style.display = "inline";
 }
 
+//show complete purchase button
 function showComplete() {
     var complete = document.getElementById("complete");
     complete.style.display = "block";
 }
 
+//hide purchase complete button
 function hideComplete() {
     var complete = document.getElementById("complete");
     complete.style.display = "none";
 }
 
+//checkout button
 function checkout() {
     showLoading();
-    //another AJAX request
     ajaxRequest("update");
-    //compare differences
 }
 
+//complete purchase button
 function complete() {
+    debugCart("DC: \n");
+    debugProducts("DC: \n");
     inactiveTime = 0;
     window.alert("Purchase complete! Thank you.");
     clearCartAndRemoveButtons();

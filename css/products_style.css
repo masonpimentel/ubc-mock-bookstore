@@ -104,6 +104,7 @@ figure {
     max-height: 230px;
 }
 
+/* loader for the main page */
 #productsLoader {
     border: 10px solid #f3f3f3; /* Light grey */
     border-top: 10px solid #3498db; /* Blue */

@@ -8,7 +8,7 @@ var TIMEOUT_SEC = 300;
 var DEBUG_CART_CONTENTS = false;
 
 //show debug messages for AJAX request
-var DEBUG_AJAX = true;
+var DEBUG_AJAX = false;
 
 //constant for the name of the stylesheet that determines
 //the css for "remove" button
@@ -16,3 +16,7 @@ var PRODUCTS_STYLESHEET = "products_style.css";
 
 //ajax url
 var AJAX_URL = "https://cpen400a.herokuapp.com/products";
+
+//show debug messages for product and cart contents
+var DEBUG_PRODUCTS_AND_CART = false;
+

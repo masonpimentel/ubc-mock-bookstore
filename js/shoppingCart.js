@@ -105,6 +105,18 @@ function totalCartValue() {
     return total;
 }
 
+//debug function to list cart contents
+function debugCart(initMessage) {
+    if (DEBUG_PRODUCTS_AND_CART) {
+        var alertString = initMessage;
+        for (var key in cart) {
+            if (!cart.hasOwnProperty(key)) continue;
+            alertString = alertString + key + "=" + cart[key];
+        }
+        window.alert(alertString);
+    }
+}
+
 
 
 
