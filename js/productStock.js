@@ -161,7 +161,7 @@ function updateRequest(result) {
             }
         }
     }
-    inactiveTime = 0;
+    resetTimer();
     refreshModal();
     hideLoading();
     if (numItems == 0) {

@@ -3,7 +3,7 @@ var closeButton = document.getElementsByClassName("close")[0];
 
 //displays the cart modal
 function displayCart() {
-    inactiveTime = 0;
+    resetTimer();
     modal.style.display = "block";
 
     refreshModal();
@@ -203,7 +203,7 @@ function checkout() {
 function complete() {
     debugCart("DC: \n");
     debugProducts("DC: \n");
-    inactiveTime = 0;
+    resetTimer();
     window.alert("Purchase complete! Thank you.");
     clearCartAndRemoveButtons();
     refreshModal();

@@ -19,6 +19,7 @@ var productsSheet = document.styleSheets[sheetIndex];
 
 //add 'productName' to cart
 function addToCart(productName) {
+    resetTimer();
     var stockQuantity = products[productName].quantity - 1;
     if (stockQuantity == -1) {
         window.alert("Sorry not in stock!");
@@ -42,11 +43,11 @@ function addToCart(productName) {
 
     updateCartButton();
     refreshModal();
-    inactiveTime = 0;
 }
 
 //removes 'productName' from cart
 function removeFromCart(productName) {
+    resetTimer();
     //check if the item is even in the cart
     if (!cart[productName]) {
         window.alert("You haven't added this to your cart yet!");
@@ -75,7 +76,6 @@ function removeFromCart(productName) {
     }
     updateCartButton();
     refreshModal();
-    inactiveTime = 0;
 }
 
 //updates the total dollar value of the cart button

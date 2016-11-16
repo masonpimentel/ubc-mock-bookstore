@@ -3,7 +3,7 @@ var inactiveTime = 0;
 document.getElementById("timerVal").style.color = "green";
 document.getElementById("timerVal").innerHTML = String(TIMEOUT_SEC);
 
-setInterval(incrementInactiveTime, 1000);
+var interval = setInterval(incrementInactiveTime, 1000);
 
 /*
  * Every 1000ms this function is called and inactiveTime is incremented
@@ -25,9 +25,17 @@ function incrementInactiveTime() {
         document.getElementById("timerVal").style.color = "green";
     }
     if (inactiveTime == TIMEOUT_SEC) {
-        inactiveTime = 0;
+        resetTimer();
         window.alert("Hey there! Are you still planning to buy something?");
         document.getElementById("timerVal").style.color = "green";
         document.getElementById("timerVal").innerHTML = String(TIMEOUT_SEC);
     }
+}
+
+function resetTimer() {
+    inactiveTime = 0;
+    clearInterval(interval);
+    document.getElementById("timerVal").style.color = "green";
+    document.getElementById("timerVal").textContent = TIMEOUT_SEC;
+    interval = setInterval(incrementInactiveTime, 1000);
 }
