@@ -4,6 +4,7 @@
 
 1. Create a \<datalocation\>/db directory
 2. Start MongoDB: ```mongod --dbpath=<datalocation>```
+  * Ex. ```mongod --dbpath=/data```
 3. ```cd CPEN400A-2016-L1A-Group13```
 4. ```npm install```
 5. ```npm start```
@@ -11,6 +12,7 @@
 ### After the first time, just do the following:
 
 1. ```mongod --dbpath=<datalocation>```
+  * Ex. ```mongod --dbpath=/data```
 2. ```cd CPEN400A-2016-L1A-Group13```
 3. ```npm start```
 
