@@ -1,5 +1,6 @@
 # CPEN400A-2016-L1A-Group13
 
+
 ### To start Node app locally for the first time:
 
 1. Create a \<datalocation\>/db directory

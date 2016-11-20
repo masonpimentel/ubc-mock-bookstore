@@ -1,0 +1,21 @@
+{
+  "name": "cpen400a-bookstore",
+  "version": "0.2.0",
+  "description": "Bookstore assignments",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "mongodb": "^2.2.11"
+  },
+  "engines": {
+    "node": "4.0.0"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ]
+}
