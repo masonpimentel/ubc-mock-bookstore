@@ -20,3 +20,6 @@ var AJAX_URL = "https://cpen400a.herokuapp.com/products";
 //show debug messages for product and cart contents
 var DEBUG_PRODUCTS_AND_CART = false;
 
+//prompt for username at the beginning
+var PROMPT_USERNAME = true;
+

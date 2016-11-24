@@ -60,6 +60,14 @@
     padding: 5px 20px;
 }
 
+#frm1 {
+    margin: 0;
+}
+
+#helptext {
+    font-size: 10px;
+}
+
 .modal-footer {
     min-height: 50px;
     padding: 10px 10px;
@@ -79,6 +87,15 @@
 /* complete purchase button */
 #complete {
     float: right;
+    margin: 0;
+    background-color: green;
+    color: white;
+    height: 30px;
+}
+
+/* username submit button */
+#username {
+    float: left;
     margin: 0;
     background-color: green;
     color: white;

@@ -1,5 +1,5 @@
 var modal = document.getElementById("myModal");
-var closeButton = document.getElementsByClassName("close")[0];
+var closeButton = document.getElementById("cartclose");
 
 //displays the cart modal
 function displayCart() {
