@@ -21,7 +21,8 @@
 4. ```cd CPEN400A-2016-L1A-Group13```
 5. ```npm start```
 
-Can now go to http://localhost:5000/ to access locally
-
-
 Hosted on Heroku at: https://cpen400group13.herokuapp.com/
+
+
+Can now go to [localhost:5000](http://localhost:5000/) to access locally
+
