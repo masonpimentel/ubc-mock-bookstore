@@ -44,34 +44,35 @@ function ajaxRequest(type) {
             }
             ajaxRequest(type);
         }
-    }
+    };
     request.onerror = function() {
         if (DEBUG_AJAX) {
             window.alert("Error " + this.status + ", retrying.");
         }
         ajaxRequest(type);
-    }
+    };
     request.ontimeout = function() {
         if (DEBUG_AJAX) {
             window.alert("Timeout after " + REQUEST_TIMEOUT + " ms, retrying.");
         }
         ajaxRequest(type);
-    }
+    };
     request.send();
 }
 
 function initRequest(result) {
     for (var item in result) {
-        products[item] = {
+        products[result[item].product] = {
             //create quantity and price properties for each product
             quantity: result[item].quantity,
-            price: result[item].price
-        }
+            price: result[item].price,
+            caption: result[item].dispName
+        };
         //add the product to the web page
-        addProductToPage(item, result[item].url, result[item].price, item);
+        addProductToPage(result[item].product, result[item].url, result[item].price, result[item].dispName);
     }
     //apply the cart container (add the cart overlay and add button)
-    applyCartContainer()
+    applyCartContainer();
     //show the add buttons
     showAddButtons();
     //remove the "please wait"
@@ -175,24 +176,21 @@ function updateRequest(result) {
 
 //used to confirm if user is okay with removal of cart item
 function noLongerInStock(item) {
-    var res = window.confirm("Sorry, " + item + " is no longer in stock. This item will be removed from your cart. " +
+    return window.confirm("Sorry, " + item + " is no longer in stock. This item will be removed from your cart. " +
         "Click on OK to continue, or Cancel to cancel purchase.");
-    return res;
 }
 
 //used to confirm if user is okay with reduced cart contents
 function differentQuantity(item, newQuantity, oldQuantity) {
-    var res = window.confirm("Sorry, " + item + " is no longer in enough quantity to fulfill your purchase. Your " +
+    return window.confirm("Sorry, " + item + " is no longer in enough quantity to fulfill your purchase. Your " +
         "quantity will be updated from " + oldQuantity + " to " + newQuantity + ". Click on OK to continue, or " +
         "Cancel to cancel purchase.");
-    return res;
 }
 
 //used to confirm if the user is ok with price change
 function differentPrice(item, newPrice, oldPrice) {
-    var res = window.confirm("Please note that the price for " + item + " has changed, it was $" +  oldPrice + " but " +
+    return window.confirm("Please note that the price for " + item + " has changed, it was $" + oldPrice + " but " +
         "now it is $" + newPrice + ". Click on OK to continue, or Cancel to cancel purchase.");
-    return res;
 }
 
 function updateProductQuantity(productName, quantity) {

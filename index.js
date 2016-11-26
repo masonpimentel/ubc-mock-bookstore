@@ -5,8 +5,15 @@ var app = express();
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
+//require mongoDb.js
+var mongodb = require("./mongoDb.js");
+
 app.get('/', function(request, response) {
     response.sendFile("index.html");
+});
+
+app.get('/products', function(request, response) {
+    mongodb.getProducts(response);
 });
 
 app.listen(app.get('port'), function() {

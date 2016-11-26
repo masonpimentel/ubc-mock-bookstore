@@ -15,11 +15,12 @@ var DEBUG_AJAX = false;
 var PRODUCTS_STYLESHEET = "products_style.css";
 
 //ajax url
-var AJAX_URL = "https://cpen400a.herokuapp.com/products";
+//port should be 5000
+var AJAX_URL = "http://localhost:5000/products";
 
 //show debug messages for product and cart contents
 var DEBUG_PRODUCTS_AND_CART = false;
 
 //prompt for username at the beginning
-var PROMPT_USERNAME = true;
+var PROMPT_USERNAME = false;
 

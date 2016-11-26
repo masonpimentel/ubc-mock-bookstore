@@ -15,7 +15,6 @@ for (var i=0; i < sheetsList.length; i++) {
 if (!sheetIndex) {
     throw "products_stylesheet.css not found";
 }
-var productsSheet = document.styleSheets[sheetIndex];
 
 //add 'productName' to cart
 function addToCart(productName) {
@@ -80,8 +79,7 @@ function removeFromCart(productName) {
 
 //updates the total dollar value of the cart button
 function updateCartButton() {
-    var cartString = "Cart ($" + totalCartValue() + ")";
-    document.getElementById("showCart").innerHTML = cartString;
+    document.getElementById("showCart").innerHTML = "Cart ($" + totalCartValue() + ")";
 }
 
 function clearCartAndRemoveButtons() {

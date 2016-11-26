@@ -14,6 +14,7 @@ function refreshModal() {
     var emptyCart = true;
     var productQuantity;
     var productPrice;
+    var productName;
     var table = document.getElementById("modalTable");
     //iterate over the number of products
     for (var item in products) {
@@ -25,14 +26,16 @@ function refreshModal() {
             productQuantity = cart[item];
             //for this product, find the price
             productPrice = products[item].price;
+            //for this product, find the name (caption)
+            productName = products[item].caption;
             var oldCartEntry = document.getElementById("modalEntry" + item);
             //if oldCartEntry exists, update it
             if (oldCartEntry != null) {
-                updateCartEntry(item, productQuantity, productPrice);
+                updateCartEntry(productName, productQuantity, productPrice);
             }
             //otherwise, create a new entry
             else {
-                createCartEntry(true, "modalEntry" + item, item, productPrice, productQuantity, item);
+                createCartEntry(true, "modalEntry" + item, productName, productPrice, productQuantity, item);
             }
         }
         //check to see if the item needs to be removed
