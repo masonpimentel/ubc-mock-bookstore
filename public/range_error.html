@@ -1,0 +1,57 @@
+<html>
+<head>
+    <title>CPEN400A Assignment</title>
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="/css/banner_style.css">
+    <link rel="stylesheet" href="/css/footer_style.css">
+    <link rel="stylesheet" href="/css/main_style.css">
+    <link rel="stylesheet" href="/css/error_style.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto+Sans">
+</head>
+<body>
+<div class="grid">
+    <div id="header">
+        <div class="col-30percent">
+            <img id="logo" src="\images\Bookstore.jpg" alt="Logo" width="200px">
+        </div>
+        <div class="col-70percent">
+            <img id="welcomeBanner" src="\images\Banner.jpg" alt="Banner" width="700px" height="200">
+        </div>
+    </div>
+
+    <div id="mainContent">
+        <div id="errormessage">
+            <p>Oops! It appears you tried to apply a price range to your request.</p>
+            <p>Please try the following format: &lturl&gt/range/&ltminimum price&gt-&ltmaximum price&gt</p>
+            <p>
+                Examples: <br>
+                <div id="examplelist">
+                    <span class="examples">
+                        http://localhost:5000/products/range/5-50
+                    </span>
+                    <span class="explanation">
+                        for a range of $5 to $50<br>
+                    </span>
+                    <span class="examples">
+                        http://localhost:5000/products/range/0-100
+                    </span>
+                    <span class="explanation">
+                        for a range of $0 to $100
+                    </span>
+                </div>
+            </p>
+            <p>
+                The allowed price range is $0 to $<%= max %>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div id="footer" class="col-100percent">
+    <h1>Contact Us</h1>
+    <p>Phone: (604) 822-2665</p>
+    <p>Email: ubc.bookstore@ubc.ca</p>
+</div>
+
+</body>
+</html>

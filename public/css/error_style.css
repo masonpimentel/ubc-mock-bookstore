@@ -1,0 +1,17 @@
+#errormessage {
+    padding: 0px 50px;
+}
+
+.examples {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 16px;
+}
+
+.explanation {
+    font-size: 16px;
+}
+
+#examplelist {
+    padding-left: 20px;
+    font-size: 0;
+}
