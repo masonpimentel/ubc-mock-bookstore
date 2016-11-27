@@ -25,7 +25,7 @@ exports.getProductsRange = function(response, min, max) {
         assert.equal(null, err);
         console.log("Serving a GET /products request with min price: " + min + ", max: " + max);
         var col = db.collection('products');
-        col.find({price: { $gt: min, $lt: max }}).toArray(function(err,docs) {
+        col.find({price: { $gt: parseInt(min), $lt: parseInt(max) }}).toArray(function(err,docs) {
             assert.equal(null, err);
             response.json(docs);
             db.close();
