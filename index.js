@@ -27,11 +27,16 @@ app.get('/products/range/:min-:max', function(request, response) {
         renderedHtml = ejs.render(content, {max: MAX_VALUE});
         if (isNaN(min) || isNaN(max) || (min < 0) || (max > MAX_VALUE)) {
             response.status(400).send(renderedHtml);
+            console.log("Error 400");
+        }
+        else {
+            mongodb.getProductsRange(response, min, max);
         }
     });
 });
 
 app.get('/*', function(request, response) {
+    console.log("Error 404");
     response.status(404).sendFile(__dirname + "/public/not_found_error.html");
 });
 

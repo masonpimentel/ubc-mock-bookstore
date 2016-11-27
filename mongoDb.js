@@ -18,3 +18,17 @@ exports.getProducts = function(response) {
         });
     });
 };
+
+exports.getProductsRange = function(response, min, max) {
+    //use connect method to connect to the Server
+    MongoClient.connect(url, function(err, db) {
+        assert.equal(null, err);
+        console.log("Serving a GET /products request with min price: " + min + ", max: " + max);
+        var col = db.collection('products');
+        col.find({price: { $gt: min, $lt: max }}).toArray(function(err,docs) {
+            assert.equal(null, err);
+            response.json(docs);
+            db.close();
+        });
+    });
+};
