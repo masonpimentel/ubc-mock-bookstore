@@ -43,7 +43,7 @@ exports.getProductsRange = function(response, min, max) {
 };
 
 //update a product
-exports.updateProduct = function(response, item, subtraction) {
+exports.updateProduct = function(response, item, subtraction, last) {
     var origQuantity;
     var newQuantity;
     MongoClient.connect(url, function(err, db) {
@@ -71,7 +71,9 @@ exports.updateProduct = function(response, item, subtraction) {
                 }
                 //whew, made it!
                 else {
-                    response.status(200).send("OK");
+                    if (last) {
+                        //response.status(200).send("OK");
+                    }
                 }
                 db.close();
             });
@@ -101,12 +103,12 @@ exports.addOrder = function(response, order) {
         assert.equal(null, err);
         console.log("Serving a POST /checkout request - adding order");
         var col = db.collection('orders');
-        col.insertMany(JSON.stringify(order), function(err) {
+        col.insertMany([order], function(err) {
             if (err) {
                 response.status(500);
             }
             else {
-                response.status(200).send("OK");
+                response.status(200).send();
             }
             db.close();
         });

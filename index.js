@@ -49,6 +49,9 @@ app.get('/*', function(request, response) {
 app.post('/checkout', function(request, response) {
     var cart;
     var subtraction;
+    var size = 0;
+    var total;
+    var iteration = 0;
     //check if JSON
     if (request.is("application/json")) {
         cart = request.body;
@@ -62,9 +65,22 @@ app.post('/checkout', function(request, response) {
     //add cart to DB
     mongodb.addOrder(response, cart);
     //update DB
+    for (var i in cart) {
+        if (cart.hasOwnProperty(i)) {
+            size++;
+        }
+    }
     for (var item in cart) {
         subtraction = cart[item];
-        mongodb.updateProduct(response, item, subtraction);
+        //size = size + subtraction;
+        //TODO add size property
+        if (iteration == size-1) {
+            mongodb.updateProduct(response, item, subtraction, true);
+        }
+        else {
+            mongodb.updateProduct(response, item, subtraction);
+        }
+        iteration++;
     }
 });
 

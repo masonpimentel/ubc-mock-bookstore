@@ -68,7 +68,9 @@ if (PROMPT_USERNAME) {
 }
 else {
     username = "user_" + randomUserId(RANDOM_STRING_LENGTH);
-    window.alert("Welcome, " + username + "!");
+    if (DEBUG_USERNAME) {
+        window.alert("Welcome, " + username + "!");
+    }
     ajaxRequest("username");
 }
 

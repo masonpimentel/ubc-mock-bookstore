@@ -10,6 +10,12 @@ var DEBUG_CART_CONTENTS = false;
 //show debug messages for AJAX request
 var DEBUG_AJAX = false;
 
+//show debug messages for product and cart contents
+var DEBUG_PRODUCTS_AND_CART = false;
+
+//show debug messages for username
+var DEBUG_USERNAME = false;
+
 //constant for the name of the stylesheet that determines
 //the css for "remove" button
 var PRODUCTS_STYLESHEET = "products_style.css";
@@ -18,11 +24,8 @@ var PRODUCTS_STYLESHEET = "products_style.css";
 //port should be 5000
 var AJAX_URL = "http://localhost:5000";
 
-//show debug messages for product and cart contents
-var DEBUG_PRODUCTS_AND_CART = false;
-
 //prompt for username at the beginning
-var PROMPT_USERNAME = true;
+var PROMPT_USERNAME = false;
 
 //length of random string for usernames
 //default if user does not set their username

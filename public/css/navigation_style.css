@@ -6,6 +6,12 @@
     background-color: darkblue;
     color: #ffffff;
     text-align: center;
+    text-decoration: none;
+}
+
+#navigationMenu a {
+    text-decoration: none;
+    color: white;
 }
 
 #navigationMenu li:hover {

@@ -9,7 +9,7 @@ ajaxRequest("init");
  * type: either "init" for inital request or "update" for update
  */
 function ajaxRequest(type, attempts) {
-    var attempts = (typeof attempts !== 'undefined') ?  attempts : 1;
+    //var attempts = (typeof attempts !== 'undefined') ?  attempts : 0;
     var request = new XMLHttpRequest();
     request.timeout = REQUEST_TIMEOUT;
     if (type == "post") {
@@ -25,6 +25,7 @@ function ajaxRequest(type, attempts) {
     }
     request.onload = function () {
         if (this.status == 200) {
+            //attempts = 0;
             if (DEBUG_AJAX) {
                 window.alert("AJAX request success!");
             }
@@ -62,32 +63,37 @@ function ajaxRequest(type, attempts) {
             if (DEBUG_AJAX) {
                 window.alert("Error " + this.status + ", retrying.");
             }
-            attempts++;
-            if (attempts == AJAX_MAX_ATTEMPTS) {
-                throw("error: Max number of request attempts reached!");
-            }
-            ajaxRequest(type, attempts);
+            //attempts++;
+            //if (attempts == AJAX_MAX_ATTEMPTS) {
+            //    throw("error: Max number of request attempts reached!");
+            //}
+            //ajaxRequest(type, attempts);
+            ajaxRequest(type);
         }
     };
     request.onerror = function() {
         if (DEBUG_AJAX) {
             window.alert("Error " + this.status + ", retrying.");
         }
+        /*
         attempts++;
         if (attempts == AJAX_MAX_ATTEMPTS) {
             throw("error: Max number of request attempts reached!");
         }
-        ajaxRequest(type, attempts);
+        ajaxRequest(type, attempts); */
+        ajaxRequest(type);
     };
     request.ontimeout = function() {
         if (DEBUG_AJAX) {
             window.alert("Timeout after " + REQUEST_TIMEOUT + " ms, retrying.");
         }
+        /*
         attempts++;
         if (attempts == AJAX_MAX_ATTEMPTS) {
             throw("error: Max number of request attempts reached!");
         }
-        ajaxRequest(type, attempts);
+        ajaxRequest(type, attempts); */
+        ajaxRequest(type);
     };
     if (type == "post") {
         request.send(JSON.stringify(cart));
