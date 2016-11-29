@@ -49,20 +49,28 @@ app.get('/*', function(request, response) {
 app.post('/checkout', function(request, response) {
     //check if JSON
     var cart;
+    var subtraction;
+    var order;
     if (request.is("application/json")) {
         cart = request.body;
-        response.status(200).send("OK");
     }
     else {
         response.status(400).send("Cart not JSON!");
-        throw("Cart not JSON!");
+        throw("error: Cart not JSON!");
     }
     console.log("Cart:");
     console.log(cart);
     //add cart to DB
 
-    //remove from DB
+    //update DB
+    for (var item in cart) {
+        subtraction = cart[item];
+        mongodb.updateProduct(response, item, subtraction);
+    }
+});
 
+app.post('/user', function(request, response) {
+    //use this to add the user
 });
 
 app.listen(app.get('port'), function() {

@@ -43,11 +43,11 @@ function ajaxRequest(type, attempts) {
                         debugProducts("AU: \n");
                     }
                     else {
-                        throw("Unknown AJAX request type.")
+                        throw("error: Unknown AJAX request type.")
                     }
                 }
                 else {
-                    throw("Response type was not JSON");
+                    throw("error: Response type was not JSON");
                 }
             }
         }
@@ -57,7 +57,7 @@ function ajaxRequest(type, attempts) {
             }
             attempts++;
             if (attempts == AJAX_MAX_ATTEMPTS) {
-                throw("Max number of request attempts reached!");
+                throw("error: Max number of request attempts reached!");
             }
             ajaxRequest(type, attempts);
         }
@@ -68,7 +68,7 @@ function ajaxRequest(type, attempts) {
         }
         attempts++;
         if (attempts == AJAX_MAX_ATTEMPTS) {
-            throw("Max number of request attempts reached!");
+            throw("error: Max number of request attempts reached!");
         }
         ajaxRequest(type, attempts);
     };
@@ -78,7 +78,7 @@ function ajaxRequest(type, attempts) {
         }
         attempts++;
         if (attempts == AJAX_MAX_ATTEMPTS) {
-            throw("Max number of request attempts reached!");
+            throw("error: Max number of request attempts reached!");
         }
         ajaxRequest(type, attempts);
     };
@@ -205,7 +205,7 @@ function updateRequest(result) {
         showComplete();
     }
     else {
-        throw("Error occurred in updateRequest");
+        throw("error: Error occurred in updateRequest");
     }
 }
 

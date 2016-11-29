@@ -172,7 +172,7 @@ function showLoading() {
 function hideLoading() {
     if (document.getElementById("loadingMessage").style.display == "none" ||
         document.getElementById("cartLoader").style.display == "none") {
-        throw("Loader disappeared.")
+        throw("error: Loader disappeared.")
     }
     var loader = document.getElementById("cartLoader");
     loader.style.display = "none";
