@@ -4,6 +4,7 @@ var assert = require('assert');
 // Connection URL
 var url = 'mongodb://localhost:27017/bookstore';
 
+//get all products
 exports.getProducts = function(response) {
     //use connect method to connect to the Server
     MongoClient.connect(url, function(err, db) {
@@ -19,6 +20,12 @@ exports.getProducts = function(response) {
     });
 };
 
+/*
+ * Get all products > min and < max
+ * params:
+ * min: minimum price
+ * max: maximum price
+ */
 exports.getProductsRange = function(response, min, max) {
     //use connect method to connect to the Server
     MongoClient.connect(url, function(err, db) {

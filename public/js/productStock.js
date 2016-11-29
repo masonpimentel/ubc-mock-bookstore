@@ -11,7 +11,12 @@ ajaxRequest("init");
 function ajaxRequest(type) {
     var request = new XMLHttpRequest();
     request.timeout = REQUEST_TIMEOUT;
-    request.open("GET", AJAX_URL);
+    if (type == "post") {
+        request.open("POST", AJAX_URL);
+    }
+    else {
+        request.open("GET", AJAX_URL);
+    }
     request.onload = function () {
         if (this.status == 200) {
             if (DEBUG_AJAX) {
@@ -86,28 +91,29 @@ function updateRequest(result) {
     for (var item in result) {
         //check if different quantity or price
         //note that oldQuantity needs to account for the items that are currently in the cart
-        var oldQuantity = products[item].quantity;
-        if (cart[item]) {
-            oldQuantity = oldQuantity + cart[item];
+        var itemProduct = result[item].product;
+        var oldQuantity = products[itemProduct].quantity;
+        if (cart[itemProduct]) {
+            oldQuantity = oldQuantity + cart[itemProduct];
         }
         var newQuantity = result[item].quantity;
-        var oldPrice = products[item].price;
+        var oldPrice = products[itemProduct].price;
         var newPrice = result[item].price;
 
         //need to first update the quantities and prices in both the products variable and in the web page
         if (oldQuantity != newQuantity) {
-            if (cart[item]) {
-                if (newQuantity - cart[item] <= 0) {
+            if (cart[itemProduct]) {
+                if (newQuantity - cart[itemProduct] <= 0) {
                     //this case is addressed in the cart check
-                    updateProductQuantity(item, 0);
+                    updateProductQuantity(result[item].product, 0);
                 }
                 else {
                     //there is no issue with amount available and cart contents
-                    updateProductQuantity(item, newQuantity - cart[item]);
+                    updateProductQuantity(result[item].product, newQuantity - cart[itemProduct]);
                 }
             }
             else {
-                updateProductQuantity(item, newQuantity);
+                updateProductQuantity(result[item].product, newQuantity);
             }
 
         }
@@ -119,12 +125,12 @@ function updateRequest(result) {
         //  1) if the item is no longer in stock
         //  2) if the item is in less availability now than what they want
         //  3) if the price has changed at all
-        if (cart[item]) {
+        if (cart[itemProduct]) {
             numItems++;
             if (oldQuantity != newQuantity) {
                 //alert user if no longer in stock
                 if (newQuantity == 0) {
-                    cart[item] = 0;
+                    cart[itemProduct] = 0;
                     res = noLongerInStock(item);
                     if (res == false) {
                         window.alert("Purchase cancelled.");
@@ -136,9 +142,9 @@ function updateRequest(result) {
                 }
                 //alert user if new quantity is less than what the user wants
                 //this occurs when the newQuantity minus the amount in the cart is negative
-                if (newQuantity - cart[item] < 0) {
-                    var oldCartQ = cart[item];
-                    cart[item] = newQuantity;
+                if (newQuantity - cart[itemProduct] < 0) {
+                    var oldCartQ = cart[itemProduct];
+                    cart[itemProduct] = newQuantity;
                     res = differentQuantity(item, newQuantity, oldCartQ);
                     if (res == false) {
                         window.alert("Purchase cancelled.");

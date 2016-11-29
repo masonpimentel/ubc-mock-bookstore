@@ -12,10 +12,12 @@ app.use(express.static(__dirname + '/public'));
 //require mongoDb.js
 var mongodb = require("./mongoDb.js");
 
+//for GET /product requests
 app.get('/products', function(request, response) {
     mongodb.getProducts(response);
 });
 
+//for GET /products/range requests
 app.get('/products/range/:min-:max', function(request, response) {
     var min = request.params['min'];
     var max = request.params['max'];
@@ -35,6 +37,7 @@ app.get('/products/range/:min-:max', function(request, response) {
     });
 });
 
+//for invalid GET requests
 app.get('/*', function(request, response) {
     console.log("Error 404");
     response.status(404).sendFile(__dirname + "/public/not_found_error.html");

@@ -207,6 +207,8 @@ function complete() {
     debugCart("DC: \n");
     debugProducts("DC: \n");
     resetTimer();
+    //POST request
+    ajaxRequest("post");
     window.alert("Purchase complete! Thank you.");
     clearCartAndRemoveButtons();
     refreshModal();
