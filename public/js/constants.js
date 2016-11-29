@@ -22,7 +22,7 @@ var AJAX_URL = "http://localhost:5000";
 var DEBUG_PRODUCTS_AND_CART = false;
 
 //prompt for username at the beginning
-var PROMPT_USERNAME = false;
+var PROMPT_USERNAME = true;
 
 //length of random string for usernames
 //default if user does not set their username

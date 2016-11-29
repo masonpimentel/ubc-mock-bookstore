@@ -1,7 +1,6 @@
 db = db.getSiblingDB('bookstore');
 
 var size = db.products.dataSize();
-print("Current size of products collection: " + size);
 if (size > 0) {
     print("Clearing products in bookstore DB");
     db.products.deleteMany({});

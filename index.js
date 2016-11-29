@@ -47,10 +47,9 @@ app.get('/*', function(request, response) {
 });
 
 app.post('/checkout', function(request, response) {
-    //check if JSON
     var cart;
     var subtraction;
-    var order;
+    //check if JSON
     if (request.is("application/json")) {
         cart = request.body;
     }
@@ -61,7 +60,7 @@ app.post('/checkout', function(request, response) {
     console.log("Cart:");
     console.log(cart);
     //add cart to DB
-
+    mongodb.addOrder(response, cart);
     //update DB
     for (var item in cart) {
         subtraction = cart[item];
@@ -70,7 +69,15 @@ app.post('/checkout', function(request, response) {
 });
 
 app.post('/user', function(request, response) {
-    //use this to add the user
+    var usernameObj;
+    if (request.is("application/json")) {
+        usernameObj = request.body;
+    }
+    else {
+        response.status(400).send("User not JSON!");
+        throw("error: User not JSON!");
+    }
+    mongodb.addUser(response, usernameObj.username);
 });
 
 app.listen(app.get('port'), function() {

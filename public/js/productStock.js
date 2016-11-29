@@ -16,6 +16,10 @@ function ajaxRequest(type, attempts) {
         request.open("POST", AJAX_URL + "/checkout");
         request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     }
+    else if (type == "username") {
+        request.open("POST", AJAX_URL + "/user");
+        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    }
     else {
         request.open("GET", AJAX_URL + "/products");
     }
@@ -25,8 +29,11 @@ function ajaxRequest(type, attempts) {
                 window.alert("AJAX request success!");
             }
             if (type == "post") {
-                //POST request
+                //POST request - purchase
                 purchaseRequest();
+            }
+            else if (type == "username") {
+                //usernameRequest();
             }
             else { //GET request (either "init" or "update")
                 //check if response is JSON - lecture example doesn't work so did it like this
@@ -84,6 +91,10 @@ function ajaxRequest(type, attempts) {
     };
     if (type == "post") {
         request.send(JSON.stringify(cart));
+    }
+    else if (type == "username") {
+        var userObj = {username: username};
+        request.send(JSON.stringify(userObj));
     }
     else {
         request.send();

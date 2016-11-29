@@ -2,32 +2,39 @@ var usernameModal = document.getElementById("userModal");
 var userCloseButton = document.getElementById("userclose");
 
 var username = "";
-function randomUserId(length)
-{
+function randomUserId(length) {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    for( var i=0; i < length; i++ )
+    for (var i = 0; i < length; i++)
         text += possible.charAt(Math.floor(Math.random() * possible.length));
 
     return text;
 }
-username = "user_" + randomUserId(RANDOM_STRING_LENGTH);
 
 //displays the username modal
 function displayUsername() {
     usernameModal.style.display = "block";
 }
 
+//called if the user decides not to provide a username
+function randomUsername() {
+    username = "user_" + randomUserId(RANDOM_STRING_LENGTH);
+    window.alert("Welcome, " + username + "!");
+    ajaxRequest("username");
+}
+
 //to close
 userCloseButton.onclick = function() {
     usernameModal.style.display = "none";
+    randomUsername();
 };
 
 //also close if user clicks anywhere outside of the modal
 window.onclick = function(event) {
     if (event.target == usernameModal) {
         usernameModal.style.display = "none";
+        randomUsername();
     }
 };
 
@@ -35,6 +42,7 @@ window.onclick = function(event) {
 document.addEventListener('keyup', function(e) {
     if (e.keyCode == 27) {
         usernameModal.style.display = "none";
+        randomUsername();
     }
 });
 
@@ -49,11 +57,18 @@ function usernameSubmit() {
     }
     usernameModal.style.display = "none";
     //put the username in the db
+    window.alert("Welcome, " + username + "!");
+    ajaxRequest("username");
 }
 
 //display the modal at the start
 //note that if the user decides not to enter a username, their token will be randomized
 if (PROMPT_USERNAME) {
     displayUsername();
+}
+else {
+    username = "user_" + randomUserId(RANDOM_STRING_LENGTH);
+    window.alert("Welcome, " + username + "!");
+    ajaxRequest("username");
 }
 
