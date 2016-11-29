@@ -199,6 +199,7 @@ function hideComplete() {
 //checkout button
 function checkout() {
     showLoading();
+    //GET request - not really necessary for A5, but we check that the stock is still sufficient
     ajaxRequest("update");
 }
 
@@ -207,9 +208,8 @@ function complete() {
     debugCart("DC: \n");
     debugProducts("DC: \n");
     resetTimer();
-    //POST request
+    //POST request - don't actually update the DB until this point
     ajaxRequest("post");
-    window.alert("Purchase complete! Thank you.");
     clearCartAndRemoveButtons();
     refreshModal();
     hideComplete();

@@ -8,61 +8,87 @@ ajaxRequest("init");
  * params:
  * type: either "init" for inital request or "update" for update
  */
-function ajaxRequest(type) {
+function ajaxRequest(type, attempts) {
+    var attempts = (typeof attempts !== 'undefined') ?  attempts : 1;
     var request = new XMLHttpRequest();
     request.timeout = REQUEST_TIMEOUT;
     if (type == "post") {
-        request.open("POST", AJAX_URL);
+        request.open("POST", AJAX_URL + "/checkout");
+        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     }
     else {
-        request.open("GET", AJAX_URL);
+        request.open("GET", AJAX_URL + "/products");
     }
     request.onload = function () {
         if (this.status == 200) {
             if (DEBUG_AJAX) {
                 window.alert("AJAX request success!");
             }
-            //check if response is JSON - lecture example doesn't work so did it like this
-            if (this.getResponseHeader("Content-type").indexOf('json') > -1) {
-                var result = JSON.parse(this.responseText);
-                if (type == "init") {
-                    initRequest(result);
-                    debugProducts("AI: \n");
-                }
-                else if (type == "update") {
-                    debugResponse("RC: \n", result);
-                    updateRequest(result);
-                    debugCart("AU: \n");
-                    debugProducts("AU: \n");
+            if (type == "post") {
+                //POST request
+                purchaseRequest();
+            }
+            else { //GET request (either "init" or "update")
+                //check if response is JSON - lecture example doesn't work so did it like this
+                if (this.getResponseHeader("Content-type").indexOf('json') > -1) {
+                    var result = JSON.parse(this.responseText);
+                    if (type == "init") {
+                        initRequest(result);
+                        debugProducts("AI: \n");
+                    }
+                    else if (type == "update") {
+                        debugResponse("RC: \n", result);
+                        updateRequest(result);
+                        debugCart("AU: \n");
+                        debugProducts("AU: \n");
+                    }
+                    else {
+                        throw("Unknown AJAX request type.")
+                    }
                 }
                 else {
-                    throw("Unknown AJAX request type.")
+                    throw("Response type was not JSON");
                 }
-            }
-            else {
-                throw("Response type was not JSON");
             }
         }
         else {
             if (DEBUG_AJAX) {
                 window.alert("Error " + this.status + ", retrying.");
             }
-            ajaxRequest(type);
+            attempts++;
+            if (attempts == AJAX_MAX_ATTEMPTS) {
+                throw("Max number of request attempts reached!");
+            }
+            ajaxRequest(type, attempts);
         }
     };
     request.onerror = function() {
         if (DEBUG_AJAX) {
             window.alert("Error " + this.status + ", retrying.");
         }
-        ajaxRequest(type);
+        attempts++;
+        if (attempts == AJAX_MAX_ATTEMPTS) {
+            throw("Max number of request attempts reached!");
+        }
+        ajaxRequest(type, attempts);
     };
     request.ontimeout = function() {
         if (DEBUG_AJAX) {
             window.alert("Timeout after " + REQUEST_TIMEOUT + " ms, retrying.");
         }
-        ajaxRequest(type);
+        attempts++;
+        if (attempts == AJAX_MAX_ATTEMPTS) {
+            throw("Max number of request attempts reached!");
+        }
+        ajaxRequest(type, attempts);
     };
-    request.send();
+    if (type == "post") {
+        request.send(JSON.stringify(cart));
+    }
+    else {
+        request.send();
+    }
+
 }
 
 function initRequest(result) {
@@ -174,10 +200,18 @@ function updateRequest(result) {
     if (numItems == 0) {
         window.alert("Cart is empty.");
     }
-    if (res && numItems > 0) {
+    else if (res && numItems > 0) {
         window.alert("Please review your cart before completing.");
         showComplete();
     }
+    else {
+        throw("Error occurred in updateRequest");
+    }
+}
+
+function purchaseRequest() {
+    window.alert("Yay POST request returned 200!");
+    window.alert("Purchase complete! Thank you, " + username + ".");
 }
 
 //used to confirm if user is okay with removal of cart item

@@ -1,6 +1,7 @@
 var MAX_VALUE = 1000;
 
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 var ejs = require('ejs');
 var fs = require('fs');
@@ -8,6 +9,8 @@ var fs = require('fs');
 //set up express node app
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //require mongoDb.js
 var mongodb = require("./mongoDb.js");
@@ -41,6 +44,25 @@ app.get('/products/range/:min-:max', function(request, response) {
 app.get('/*', function(request, response) {
     console.log("Error 404");
     response.status(404).sendFile(__dirname + "/public/not_found_error.html");
+});
+
+app.post('/checkout', function(request, response) {
+    //check if JSON
+    var cart;
+    if (request.is("application/json")) {
+        cart = request.body;
+        response.status(200).send("OK");
+    }
+    else {
+        response.status(400).send("Cart not JSON!");
+        throw("Cart not JSON!");
+    }
+    console.log("Cart:");
+    console.log(cart);
+    //add cart to DB
+
+    //remove from DB
+
 });
 
 app.listen(app.get('port'), function() {

@@ -16,7 +16,7 @@ var PRODUCTS_STYLESHEET = "products_style.css";
 
 //ajax url
 //port should be 5000
-var AJAX_URL = "http://localhost:5000/products";
+var AJAX_URL = "http://localhost:5000";
 
 //show debug messages for product and cart contents
 var DEBUG_PRODUCTS_AND_CART = false;
@@ -24,3 +24,10 @@ var DEBUG_PRODUCTS_AND_CART = false;
 //prompt for username at the beginning
 var PROMPT_USERNAME = false;
 
+//length of random string for usernames
+//default if user does not set their username
+//"user" + <RANDOM_STRING_LENGTH random chars>
+var RANDOM_STRING_LENGTH = 5;
+
+//maximum number of request attempts
+var AJAX_MAX_ATTEMPTS = 10;
