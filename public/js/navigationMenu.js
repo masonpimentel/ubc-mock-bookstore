@@ -1,28 +1,35 @@
 function removeFilter() {
-    window.alert("wew");
+    ajaxRequest("filter", 0, "*");
+    resetTimer();
 }
 
 function booksFilter() {
-    window.alert("wew");
+    ajaxRequest("filter", 0, "books");
+    resetTimer();
 }
 
 function clothingFilter() {
-    window.alert("wew");
+    ajaxRequest("filter", 0, "clothing");
+    resetTimer();
 }
 
 function techFilter() {
-    window.alert("wew");
+    ajaxRequest("filter", 0, "tech");
+    resetTimer();
 }
 
 function giftsFilter() {
-    window.alert("wew");
+    ajaxRequest("filter", 0, "gifts");
+    resetTimer();
 }
 
 function stationaryFilter() {
-    window.alert("wew");
+    ajaxRequest("filter", 0, "stationary");
+    resetTimer();
 }
 
 function suppliesFilter() {
-    window.alert("wew");
+    ajaxRequest("filter", 0, "supplies");
+    resetTimer();
 }
 

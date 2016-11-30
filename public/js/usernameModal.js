@@ -10,7 +10,6 @@ function displayUsername() {
 function randomUsername() {
     username = "user_" + randomUserId(RANDOM_STRING_LENGTH);
     window.alert("Welcome, " + username + "!");
-    ajaxRequest("username");
 }
 
 //to close
@@ -47,7 +46,7 @@ function usernameSubmit() {
     usernameModal.style.display = "none";
     //put the username in the db
     window.alert("Welcome, " + username + "!");
-    ajaxRequest("username");
+    ajaxRequest("username", 0);
 }
 
 //display the modal at the start
@@ -60,6 +59,6 @@ else {
     if (DEBUG_USERNAME) {
         window.alert("Welcome, " + username + "!");
     }
-    ajaxRequest("username");
+    ajaxRequest("username", 0);
 }
 

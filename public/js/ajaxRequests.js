@@ -12,15 +12,24 @@ function randomUserId(length) {
     return text;
 }
 
+//set the username authentication token - if user adds a custom username it will be added later
+ajaxRequest("username", 0);
 //product initialization
-ajaxRequest("init");
+ajaxRequest("init", 0);
 
 /* Creates an AJAX request to AJAX_URL
  *
  * params:
- * type: either "init" for inital request or "update" for update
+ * type:        "post" for checkout process
+ *              "username" to add a user's authentication token
+ *              "init" for initial GET request
+ *              "update" for reloading the page in the case of server side changes
+ *              "filter" for a GET /products request with a filter (see filter argument)
+ * attempts:    number of AJAX requests used so far
+ * filter:      used with "filter" type only - this returns all products in the DB with the matching
+ *              "category" property
  */
-function ajaxRequest(type, attempts) {
+function ajaxRequest(type, attempts, filter) {
     //var attempts = (typeof attempts !== 'undefined') ?  attempts : 0;
     var request = new XMLHttpRequest();
     request.timeout = REQUEST_TIMEOUT;
@@ -30,6 +39,10 @@ function ajaxRequest(type, attempts) {
     }
     else if (type == "username") {
         request.open("POST", AJAX_URL + "/user");
+    }
+    else if (type == "filter") {
+        request.open("GET", AJAX_URL + "/filter");
+        request.setRequestHeader("filter", filter);
     }
     else {
         request.open("GET", AJAX_URL + "/products");
@@ -47,14 +60,18 @@ function ajaxRequest(type, attempts) {
                 purchaseRequest();
             }
             else if (type == "username") {
-                //usernameRequest();
+                //POST request - username
+            }
+            else if (type == "filter") {
+                //GET request - with filter
+                getProductsRequest(JSON.parse(this.responseText), true);
             }
             else { //GET request (either "init" or "update")
                 //check if response is JSON - lecture example doesn't work so did it like this
                 if (this.getResponseHeader("Content-type").indexOf('json') > -1) {
                     var result = JSON.parse(this.responseText);
                     if (type == "init") {
-                        initRequest(result);
+                        getProductsRequest(result, false);
                         debugProducts("AI: \n");
                     }
                     else if (type == "update") {
@@ -118,11 +135,21 @@ function ajaxRequest(type, attempts) {
     else {
         request.send();
     }
-
 }
 
-function initRequest(result) {
+/*
+ * Used to reload the page with the appropriate products
+ * params:
+ * result: JSON response from server
+ * clear: set to true to clear the products grid first
+ */
+function getProductsRequest(result, clear) {
+    var itemCount = 0;
+    if (clear) {
+        clearProducts();
+    }
     for (var item in result) {
+        itemCount++;
         products[result[item].product] = {
             //create quantity and price properties for each product
             quantity: result[item].quantity,
@@ -131,6 +158,12 @@ function initRequest(result) {
         };
         //add the product to the web page
         addProductToPage(result[item].product, result[item].url, result[item].price, result[item].dispName);
+    }
+    if (itemCount == 0) {
+        nothingToDisplay();
+    }
+    else if (clear) {
+        removeNothingToDisplay();
     }
     //apply the cart container (add the cart overlay and add button)
     applyCartContainer();
@@ -240,7 +273,6 @@ function updateRequest(result) {
 }
 
 function purchaseRequest() {
-    window.alert("Yay POST request returned 200!");
     window.alert("Purchase complete! Thank you, " + username + ".");
 }
 

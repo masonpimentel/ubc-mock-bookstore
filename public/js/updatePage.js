@@ -65,6 +65,34 @@ function addProductToPage(id, imgsrc, price, figcaption) {
     productList.appendChild(newProduct);
 }
 
+//used to clear all products after a GET /filter request
+function clearProducts() {
+    var productList = document.getElementById("productList");
+    var products = productList.getElementsByTagName("figure");
+    for (var i = products.length - 1; i >= 0; i--) {
+        products[i].remove();
+    }
+}
+
+//used if the product filter doesn't return anything
+function nothingToDisplay() {
+    var productList = document.getElementById("productList");
+    var nothingDiv = document.getElementById("nothingToDisplay");
+    if (nothingDiv == null) {
+        nothingDiv = document.createElement("div");
+        nothingDiv.id = "nothingToDisplay";
+        nothingDiv.textContent = "No items to display!";
+        productList.appendChild(nothingDiv);
+    }
+}
+
+function removeNothingToDisplay() {
+    var nothingDiv = document.getElementById("nothingToDisplay");
+    if (nothingDiv != null) {
+        nothingDiv.remove();
+    }
+}
+
 function updateProductPriceOnPage(id, priceValue) {
     var product = document.getElementById(id);
     var price = product.getElementsByClassName("price")[0];

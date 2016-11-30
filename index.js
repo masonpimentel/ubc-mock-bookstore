@@ -17,6 +17,8 @@ var mongodb = require("./mongoDb.js");
 
 //for GET /product requests
 app.get('/products', function(request, response) {
+    //AJAX authentication
+    mongodb.checkToken(response, request.headers.token);
     mongodb.getProducts(response);
 });
 
@@ -25,8 +27,8 @@ app.get('/products/range/:min-:max', function(request, response) {
     var min = request.params['min'];
     var max = request.params['max'];
     var renderedHtml;
-    var token = request.headers.token;
-    //TODO handle token
+    //AJAX authentication
+    mongodb.checkToken(response, request.headers.token);
     fs.readFile("public/range_error.html", 'utf-8', function(err, content) {
         if (err) {
             throw ("EJS error");
@@ -42,19 +44,35 @@ app.get('/products/range/:min-:max', function(request, response) {
     });
 });
 
+//for GET /filter requests
+app.get('/filter', function(request, response) {
+    //AJAX authentication
+    mongodb.checkToken(response, request.headers.token);
+    var filter = request.headers.filter;
+    //use wildcard to return all
+    if (filter == "*") {
+        mongodb.getProducts(response);
+    }
+    else {
+        mongodb.getProductsFilter(response, filter);
+    }
+});
+
 //for invalid GET requests
 app.get('/*', function(request, response) {
     console.log("Error 404");
     response.status(404).sendFile(__dirname + "/public/not_found_error.html");
 });
 
+//for POST /checkout requests
 app.post('/checkout', function(request, response) {
     var cart;
     var subtraction;
     var cartSize = 0;
     var authentication = 0;
     var totalPrice = request.headers.cartvalue;
-    mongodb.checkToken(response, authentication, request.headers.token);
+    //AJAX authentication
+    mongodb.checkToken(response, request.headers.token);
     //check if JSON
     if (request.is("application/json")) {
         cart = request.body;
@@ -79,6 +97,7 @@ app.post('/checkout', function(request, response) {
     }
 });
 
+//for POST /user requests
 app.post('/user', function(request, response) {
     var usernameObj;
     if (request.is("application/json")) {

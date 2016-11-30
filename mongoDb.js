@@ -4,7 +4,11 @@ var assert = require('assert');
 // Connection URL
 var url = 'mongodb://localhost:27017/bookstore';
 
-//get all products
+/*
+ * Get all products in bookstore/products
+ * params:
+ * response: AJAX response
+ */
 exports.getProducts = function(response) {
     MongoClient.connect(url, function(err, db) {
         assert.equal(null, err);
@@ -22,8 +26,9 @@ exports.getProducts = function(response) {
 };
 
 /*
- * Get all products > min and < max
+ * Get all products > min and < max in bookstore/products
  * params:
+ * response: AJAX response
  * min: minimum price
  * max: maximum price
  */
@@ -43,7 +48,35 @@ exports.getProductsRange = function(response, min, max) {
     });
 };
 
-//update a product
+/*
+ * Get all products that belong to "filter" category
+ * params:
+ * response: AJAX response
+ * filter: filter to match category with
+ */
+exports.getProductsFilter = function(response, filter) {
+    MongoClient.connect(url, function(err, db) {
+        assert.equal(null, err);
+        console.log("Serving a GET /filter request with filter: " + filter);
+        var col = db.collection('products');
+        col.find({category: filter}).toArray(function(err,docs) {
+            if (err) {
+                response.status(500);
+                throw("error: " + err);
+            }
+            response.json(docs);
+            db.close();
+        });
+    });
+};
+
+/*
+ * Update a product in bookstore/products
+ * params:
+ * response: AJAX response
+ * item: item in DB to be updated
+ * subtraction: the amount that is being subtracted from its value in the DB
+ */
 exports.updateProduct = function(response, item, subtraction) {
     var origQuantity;
     var newQuantity;
@@ -81,6 +114,13 @@ exports.updateProduct = function(response, item, subtraction) {
     });
 };
 
+/*
+ * Add an order to bookstore/orders
+ * params:
+ * response: AJAX response
+ * order: the cart (in JSON form)
+ * totalPrice: total price value of the cart
+ */
 exports.addOrder = function(response, order, totalPrice) {
     MongoClient.connect(url, function(err, db) {
         assert.equal(null, err);
@@ -101,6 +141,12 @@ exports.addOrder = function(response, order, totalPrice) {
     });
 };
 
+/*
+ * Add a user's authentication token to bookstore/users
+ * params:
+ * response: AJAX response
+ * token: username, i.e. the user's authentication token
+ */
 exports.addUser = function(response, token) {
     MongoClient.connect(url, function(err, db) {
         assert.equal(null, err);
@@ -119,7 +165,15 @@ exports.addUser = function(response, token) {
     });
 };
 
-exports.checkToken = function(response, authentication, token) {
+/*
+ * Checks that the user's authentication token matches in the DB
+ * params:
+ * response: AJAX response
+ * token: username, i.e. the user's authentication token
+ * Assumption for A5 is that this is adequate enough from a security standpoint...
+ */
+//assumption is that this is adequate for A5, and that proper
+exports.checkToken = function(response, token) {
     MongoClient.connect(url, function(err, db) {
         assert.equal(null, err);
         console.log("Checking authentication");
