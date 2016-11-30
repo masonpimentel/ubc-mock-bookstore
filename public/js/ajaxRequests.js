@@ -12,10 +12,12 @@ function randomUserId(length) {
     return text;
 }
 
-//set the username authentication token - if user adds a custom username it will be added later
-ajaxRequest("username", 0);
-//product initialization
-ajaxRequest("init", 0);
+function initializeUserAndProducts() {
+    //set the username authentication token - if user adds a custom username it will be added later
+    ajaxRequest("username", 0);
+    //product initialization
+    ajaxRequest("init", 0);
+}
 
 /* Creates an AJAX request to AJAX_URL
  *

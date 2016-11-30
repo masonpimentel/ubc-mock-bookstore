@@ -23,6 +23,7 @@ window.onclick = function(event) {
     if (event.target == usernameModal) {
         usernameModal.style.display = "none";
         randomUsername();
+        initializeUserAndProducts();
     }
 };
 
@@ -31,6 +32,7 @@ document.addEventListener('keyup', function(e) {
     if (e.keyCode == 27) {
         usernameModal.style.display = "none";
         randomUsername();
+        initializeUserAndProducts();
     }
 });
 
@@ -46,7 +48,7 @@ function usernameSubmit() {
     usernameModal.style.display = "none";
     //put the username in the db
     window.alert("Welcome, " + username + "!");
-    ajaxRequest("username", 0);
+    initializeUserAndProducts();
 }
 
 //display the modal at the start
@@ -59,6 +61,6 @@ else {
     if (DEBUG_USERNAME) {
         window.alert("Welcome, " + username + "!");
     }
-    ajaxRequest("username", 0);
+    initializeUserAndProducts();
 }
 
