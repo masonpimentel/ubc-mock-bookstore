@@ -16,6 +16,7 @@ function randomUsername() {
 userCloseButton.onclick = function() {
     usernameModal.style.display = "none";
     randomUsername();
+    initializeUserAndProducts();
 };
 
 //also close if user clicks anywhere outside of the modal
