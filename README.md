@@ -7,6 +7,7 @@ Please ensure the following are installed:
   * MongoDB https://www.mongodb.com/download-center?filter=enterprise#enterprise
 
 Create the following directory: \<datalocation\>/db ex. D:/data/db
+
 Add MongoDB\Server\3.2\bin to your PATH variable
 
 ### To start Node app locally:
