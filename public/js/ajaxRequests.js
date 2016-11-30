@@ -30,7 +30,6 @@ ajaxRequest("init", 0);
  *              "category" property
  */
 function ajaxRequest(type, attempts, filter) {
-    //var attempts = (typeof attempts !== 'undefined') ?  attempts : 0;
     var request = new XMLHttpRequest();
     request.timeout = REQUEST_TIMEOUT;
     if (type == "post") {
@@ -51,7 +50,7 @@ function ajaxRequest(type, attempts, filter) {
     request.setRequestHeader("Token", username);
     request.onload = function () {
         if (this.status == 200) {
-            //attempts = 0;
+            attempts = 0;
             if (DEBUG_AJAX) {
                 window.alert("AJAX request success!");
             }
@@ -93,37 +92,41 @@ function ajaxRequest(type, attempts, filter) {
             if (DEBUG_AJAX) {
                 window.alert("Error " + this.status + ", retrying.");
             }
-            //attempts++;
-            //if (attempts == AJAX_MAX_ATTEMPTS) {
-            //    throw("error: Max number of request attempts reached!");
-            //}
-            //ajaxRequest(type, attempts);
-            ajaxRequest(type);
+            attempts++;
+            if (attempts == AJAX_MAX_ATTEMPTS) {
+                throw("error: Max number of request attempts reached!");
+                hideLoading();
+                window.alert("Sorry, there was an issue trying to communicate with the server. Please try again" +
+                    "later.")
+            }
+            ajaxRequest(type, attempts);
         }
     };
     request.onerror = function() {
         if (DEBUG_AJAX) {
             window.alert("Error " + this.status + ", retrying.");
         }
-        /*
         attempts++;
         if (attempts == AJAX_MAX_ATTEMPTS) {
             throw("error: Max number of request attempts reached!");
+            hideLoading();
+            window.alert("Sorry, there was an issue trying to communicate with the server. Please try again" +
+                "later.")
         }
-        ajaxRequest(type, attempts); */
-        ajaxRequest(type);
+        ajaxRequest(type, attempts);
     };
     request.ontimeout = function() {
         if (DEBUG_AJAX) {
             window.alert("Timeout after " + REQUEST_TIMEOUT + " ms, retrying.");
         }
-        /*
         attempts++;
         if (attempts == AJAX_MAX_ATTEMPTS) {
             throw("error: Max number of request attempts reached!");
+            hideLoading();
+            window.alert("Sorry, there was an issue trying to communicate with the server. Please try again" +
+                "later.")
         }
-        ajaxRequest(type, attempts); */
-        ajaxRequest(type);
+        ajaxRequest(type, attempts);
     };
     if (type == "post") {
         request.send(JSON.stringify(cart));

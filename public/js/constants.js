@@ -25,7 +25,7 @@ var PRODUCTS_STYLESHEET = "products_style.css";
 var AJAX_URL = "http://localhost:5000";
 
 //prompt for username at the beginning
-var PROMPT_USERNAME = false;
+var PROMPT_USERNAME = true;
 
 //length of random string for usernames
 //default if user does not set their username
