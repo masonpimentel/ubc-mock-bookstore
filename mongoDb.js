@@ -35,6 +35,7 @@ exports.getProductsRange = function(response, min, max) {
         col.find({price: { $gt: parseInt(min), $lt: parseInt(max) }}).toArray(function(err,docs) {
             if (err) {
                 response.status(500);
+                throw("error: " + err);
             }
             response.json(docs);
             db.close();
@@ -43,7 +44,7 @@ exports.getProductsRange = function(response, min, max) {
 };
 
 //update a product
-exports.updateProduct = function(response, item, subtraction, last) {
+exports.updateProduct = function(response, item, subtraction) {
     var origQuantity;
     var newQuantity;
     MongoClient.connect(url, function(err, db) {
@@ -53,6 +54,7 @@ exports.updateProduct = function(response, item, subtraction, last) {
         col.find({product: item}).toArray(function(err,docs) {
             if (err) {
                 response.status(500).send();
+                throw("error: " + err);
             }
             origQuantity = docs[0].quantity;
             if (docs[1]) {
@@ -68,15 +70,33 @@ exports.updateProduct = function(response, item, subtraction, last) {
             col.updateOne({product: item}, {$set:{quantity: newQuantity}}, function(err) {
                 if (err) {
                     response.status(500).send();
+                    throw("error: " + err);
                 }
                 //whew, made it!
-                else {
-                    if (last) {
-                        //response.status(200).send("OK");
-                    }
-                }
+                //set the status code but don't worry about sending it yet
+                response.status(200);
                 db.close();
             });
+        });
+    });
+};
+
+exports.addOrder = function(response, order, totalPrice) {
+    MongoClient.connect(url, function(err, db) {
+        assert.equal(null, err);
+        console.log("Serving a POST /checkout request - adding order");
+        var col = db.collection('orders');
+        var jsonString = JSON.stringify(order);
+        col.insertOne({cart: jsonString, total: totalPrice}, function(err) {
+            if (err) {
+                response.status(500);
+                throw("error: " + err);
+            }
+            //need this or request will be sent again
+            else {
+                response.status(200).send();
+            }
+            db.close();
         });
     });
 };
@@ -89,6 +109,7 @@ exports.addUser = function(response, token) {
         col.insertOne({token: token}, function(err) {
             if (err) {
                 response.status(500).send();
+                throw("error: " + err);
             }
             else {
                 response.status(200).send("OK");
@@ -98,20 +119,23 @@ exports.addUser = function(response, token) {
     });
 };
 
-exports.addOrder = function(response, order) {
+exports.checkToken = function(response, authentication, token) {
     MongoClient.connect(url, function(err, db) {
         assert.equal(null, err);
-        console.log("Serving a POST /checkout request - adding order");
-        var col = db.collection('orders');
-        col.insertMany([order], function(err) {
+        console.log("Checking authentication");
+        var col = db.collection('users');
+        col.find({token: token}).toArray(function(err, doc) {
             if (err) {
-                response.status(500);
+                response.status(500).send();
+                throw("error: " + err);
             }
-            else {
-                response.status(200).send();
+            if (doc.length < 1) {
+                response.status(401).send();
+                throw("error: Authentication error");
             }
             db.close();
         });
     });
 };
+
 

@@ -25,6 +25,8 @@ app.get('/products/range/:min-:max', function(request, response) {
     var min = request.params['min'];
     var max = request.params['max'];
     var renderedHtml;
+    var token = request.headers.token;
+    //TODO handle token
     fs.readFile("public/range_error.html", 'utf-8', function(err, content) {
         if (err) {
             throw ("EJS error");
@@ -49,9 +51,10 @@ app.get('/*', function(request, response) {
 app.post('/checkout', function(request, response) {
     var cart;
     var subtraction;
-    var size = 0;
-    var total;
-    var iteration = 0;
+    var cartSize = 0;
+    var authentication = 0;
+    var totalPrice = request.headers.cartvalue;
+    mongodb.checkToken(response, authentication, request.headers.token);
     //check if JSON
     if (request.is("application/json")) {
         cart = request.body;
@@ -63,24 +66,16 @@ app.post('/checkout', function(request, response) {
     console.log("Cart:");
     console.log(cart);
     //add cart to DB
-    mongodb.addOrder(response, cart);
-    //update DB
+    mongodb.addOrder(response, cart, totalPrice);
+    //check how many items are in the cart
     for (var i in cart) {
         if (cart.hasOwnProperty(i)) {
-            size++;
+            cartSize++;
         }
     }
     for (var item in cart) {
         subtraction = cart[item];
-        //size = size + subtraction;
-        //TODO add size property
-        if (iteration == size-1) {
-            mongodb.updateProduct(response, item, subtraction, true);
-        }
-        else {
-            mongodb.updateProduct(response, item, subtraction);
-        }
-        iteration++;
+        mongodb.updateProduct(response, item, subtraction);
     }
 });
 

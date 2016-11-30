@@ -1,17 +1,6 @@
 var usernameModal = document.getElementById("userModal");
 var userCloseButton = document.getElementById("userclose");
 
-var username = "";
-function randomUserId(length) {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for (var i = 0; i < length; i++)
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text;
-}
-
 //displays the username modal
 function displayUsername() {
     usernameModal.style.display = "block";

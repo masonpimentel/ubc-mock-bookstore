@@ -1,5 +1,17 @@
 var products = {};
 
+//this will also act as the client-side authentication "token"
+var username = "";
+function randomUserId(length) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < length; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
 //product initialization
 ajaxRequest("init");
 
@@ -14,15 +26,16 @@ function ajaxRequest(type, attempts) {
     request.timeout = REQUEST_TIMEOUT;
     if (type == "post") {
         request.open("POST", AJAX_URL + "/checkout");
-        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        request.setRequestHeader("cartValue", totalCartValue());
     }
     else if (type == "username") {
         request.open("POST", AJAX_URL + "/user");
-        request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     }
     else {
         request.open("GET", AJAX_URL + "/products");
     }
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    request.setRequestHeader("Token", username);
     request.onload = function () {
         if (this.status == 200) {
             //attempts = 0;
