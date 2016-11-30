@@ -185,7 +185,6 @@ exports.checkToken = function(response, token) {
             }
             if (doc.length < 1) {
                 response.status(401).send();
-                throw("error: Authentication error");
             }
             db.close();
         });

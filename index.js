@@ -27,8 +27,9 @@ app.get('/products/range/:min-:max', function(request, response) {
     var min = request.params['min'];
     var max = request.params['max'];
     var renderedHtml;
-    //AJAX authentication
-    mongodb.checkToken(response, request.headers.token);
+    /* Note that AJAX authentication is not used for this request - this is because the user
+     * would not have a token assigned, which is done by entering the main page
+     */
     fs.readFile("public/range_error.html", 'utf-8', function(err, content) {
         if (err) {
             throw ("EJS error");
@@ -68,8 +69,6 @@ app.get('/*', function(request, response) {
 app.post('/checkout', function(request, response) {
     var cart;
     var subtraction;
-    var cartSize = 0;
-    var authentication = 0;
     var totalPrice = request.headers.cartvalue;
     //AJAX authentication
     mongodb.checkToken(response, request.headers.token);
@@ -85,12 +84,6 @@ app.post('/checkout', function(request, response) {
     console.log(cart);
     //add cart to DB
     mongodb.addOrder(response, cart, totalPrice);
-    //check how many items are in the cart
-    for (var i in cart) {
-        if (cart.hasOwnProperty(i)) {
-            cartSize++;
-        }
-    }
     for (var item in cart) {
         subtraction = cart[item];
         mongodb.updateProduct(response, item, subtraction);
@@ -105,7 +98,6 @@ app.post('/user', function(request, response) {
     }
     else {
         response.status(400).send("User not JSON!");
-        throw("error: User not JSON!");
     }
     mongodb.addUser(response, usernameObj.username);
 });

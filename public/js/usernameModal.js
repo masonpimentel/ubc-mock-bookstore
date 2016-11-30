@@ -9,7 +9,7 @@ function displayUsername() {
 //called if the user decides not to provide a username
 function randomUsername() {
     username = "user_" + randomUserId(RANDOM_STRING_LENGTH);
-    window.alert("Welcome, " + username + "!");
+    window.alert("Welcome! We have randomly generated the following username for you: " + username);
 }
 
 //to close
