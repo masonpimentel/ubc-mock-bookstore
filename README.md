@@ -5,19 +5,19 @@
 Please ensure the following are installed:
   * Node.js https://nodejs.org/en/
   * MongoDB https://www.mongodb.com/download-center?filter=enterprise#enterprise
-  * MongoDB Node.JS Driver https://mongodb.github.io/node-mongodb-native/
 
-Create the following directory: <datalocation\>/db ex. D:\data\db
+Create the following directory: \<datalocation\>/db ex. D:/data/db
+Add MongoDB\Server\3.2\bin to your PATH variable
 
 ### To start Node app locally:
 
 1. Start MongoDB: ```mongod --dbpath=<datalocation>```
   * Ex. ```mongod --dbpath=/data```
-2. Open another terminal and run ```mongo``` to start a mongo shell
-3. In the mongo shell run ```load('initdb.js')``` to initialize the DB (can also do this after first setup to
+2. ```cd CPEN400A-2016-L1A-Group13```
+3. Open another terminal and run ```mongo``` to start a mongo shell
+4. In the mongo shell run ```load('initdb.js')``` to initialize the DB (can also do this after first setup to
 re-initialize the DB)
-4. ```cd CPEN400A-2016-L1A-Group13```
-5. ```npm start```
+5. Open another terminal and run ```npm start```
 
 Can now go to [localhost:5000](http://localhost:5000/) to access locally
 
