@@ -191,4 +191,36 @@ exports.checkToken = function(response, token) {
     });
 };
 
+/*
+ * For privileged users to restore DB to default values
+ * params:
+ * response: AJAX response
+ * token: username, i.e. the user's authentication token
+ */
+exports.restoreDb = function(response) {
+    MongoClient.connect(url, function(err, db) {
+        assert.equal(null, err);
+        var products = db.collection('users');
+        if (db.products.totalSize() > 0) {
+            console.log("Clearing products");
+            db.products.deleteMany({});
+        }
+        else {
+            console.log("Not clearing products");
+        }
+        /*
+        col.find({token: token}).toArray(function(err, doc) {
+            if (err) {
+                response.status(500).send();
+                throw("error: " + err);
+            }
+            if (doc.length < 1) {
+                response.status(401).send();
+            }
+            db.close();
+        });
+        */
+    });
+};
+
 

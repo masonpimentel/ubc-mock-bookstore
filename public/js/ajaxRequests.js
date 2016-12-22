@@ -27,6 +27,7 @@ function initializeUserAndProducts() {
  *              "init" for initial GET request
  *              "update" for reloading the page in the case of server side changes
  *              "filter" for a GET /products request with a filter (see filter argument)
+ *              "restore" to completely restore the DB to default values
  * attempts:    number of AJAX requests used so far
  * filter:      used with "filter" type only - this returns all products in the DB with the matching
  *              "category" property
@@ -45,6 +46,10 @@ function ajaxRequest(type, attempts, filter) {
         request.open("GET", AJAX_URL + "/filter");
         request.setRequestHeader("filter", filter);
     }
+    else if(type == "restore") {
+        //zero security, but just here for demonstration purposes
+        request.open("POST", AJAX_URL + "/restore");
+    }
     else {
         request.open("GET", AJAX_URL + "/products");
     }
@@ -62,6 +67,9 @@ function ajaxRequest(type, attempts, filter) {
             }
             else if (type == "username") {
                 //POST request - username
+            }
+            else if (type == "restore") {
+                //POST request - restore
             }
             else if (type == "filter") {
                 //GET request - with filter

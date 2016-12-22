@@ -102,6 +102,11 @@ app.post('/user', function(request, response) {
     mongodb.addUser(response, usernameObj.username);
 });
 
+//for POST /restore requests
+app.post('/restore', function(request, response) {
+    console.log("Wooo!");
+});
+
 app.listen(app.get('port'), function() {
     console.log("Node app is running at localhost:" + app.get('port'))
 });
