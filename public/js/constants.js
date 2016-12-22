@@ -22,7 +22,7 @@ var PRODUCTS_STYLESHEET = "products_style.css";
 
 //ajax url
 //port should be 5000
-var AJAX_URL = "http://localhost:5000";
+var AJAX_URL = "https://ubcmockbookstore.herokuapp.com/";
 
 //prompt for username at the beginning
 var PROMPT_USERNAME = true;
