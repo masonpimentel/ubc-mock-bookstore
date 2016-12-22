@@ -142,3 +142,8 @@ function hideRemoveButton(productName) {
     addButton.style.width = 130;
     addButton.style.left = 30;
 }
+
+//restore the DB, for privileged users
+function restoreDb() {
+    window.alert("Hi privileged user! We will now restore all the stock to their default quantities.")
+}
