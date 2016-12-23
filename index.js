@@ -104,7 +104,7 @@ app.post('/user', function(request, response) {
 
 //for POST /restore requests
 app.post('/restore', function(request, response) {
-    response.send("Wooo").status(200);
+    response.send("Wooo").status(400);
     console.log("Wooo!");
 });
 
