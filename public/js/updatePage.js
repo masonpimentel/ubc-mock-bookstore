@@ -145,5 +145,6 @@ function hideRemoveButton(productName) {
 
 //restore the DB, for privileged users
 function restoreDb() {
-    window.alert("Hi privileged user! We will now restore all the stock to their default quantities.")
+    resetTimer();
+    window.alert("Hi privileged user! We will now restore all the stock to their default quantities.");
 }
