@@ -26,7 +26,7 @@ Can now go to [localhost:5000](http://localhost:5000/) to access locally
 
 The following screenshot shows the error page returned when a bad products price range request is made, please
 use it as reference for making the request:
-<img src="https://github.com/abrahamchanUBC/CPEN400A-2016-L1A-Group13/blob/master/public/images/RangeRequest.png" width="800">
+<img src="https://github.com/snxfz947/MockUBCBookstore/blob/master/public/images/RangeRequest.png" width="800">
 
 
 
