@@ -2,7 +2,7 @@
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 // Connection URL
-var url = 'mongodb://admin:abc123@ds143608.mlab.com:43608/heroku_5ccjf782';
+var url = 'mongodb://localhost:27017/bookstore';
 
 /*
  * Get all products in bookstore/products
@@ -200,26 +200,49 @@ exports.checkToken = function(response, token) {
 exports.restoreDb = function(response) {
     MongoClient.connect(url, function(err, db) {
         assert.equal(null, err);
-        var products = db.collection('users');
-        if (db.products.totalSize() > 0) {
-            console.log("Clearing products");
-            db.products.deleteMany({});
-        }
-        else {
-            console.log("Not clearing products");
-        }
-        /*
-        col.find({token: token}).toArray(function(err, doc) {
-            if (err) {
-                response.status(500).send();
-                throw("error: " + err);
-            }
-            if (doc.length < 1) {
-                response.status(401).send();
-            }
-            db.close();
+        console.log("Deleting products");
+        db.collection('products').remove(function(){
+            db.collection('products').insertMany([
+                { product: 'Box1',          price: 10,  quantity: 100,  dispName: "Clear box",
+                    url: 'images/Box1.png',
+                    category: 'stationary'},
+                { product: 'Box2',          price: 5,   quantity: 50,   dispName: "Colored box",
+                    url: 'images/Box2.png',
+                    category: 'stationary'},
+                { product: 'Clothes1',      price: 20,  quantity: 25,   dispName: "Dress",
+                    url: 'images/Clothes1.png',
+                    category: 'clothing'},
+                { product: 'Clothes2',      price: 30,  quantity: 50,   dispName: "Dye shirt",
+                    url: 'images/Clothes2.png',
+                    category: 'clothing'},
+                { product: 'Jeans',         price: 50,  quantity: 75,   dispName: "Jeans",
+                    url: 'images/Jeans.png',
+                    category: 'clothing'},
+                { product: 'KeyboardCombo', price: 40,  quantity: 10,   dispName: "Gaming combo",
+                    url: 'images/KeyboardCombo.png',
+                    category: 'tech'},
+                { product: 'Keyboard',      price: 20,  quantity: 10,   dispName: "Mechanical keyboard",
+                    url: 'images/Keyboard.png',
+                    category: 'tech'},
+                { product: 'Mice',          price: 20,  quantity: 25,   dispName: "Gaming mouse",
+                    url: 'images/Mice.png',
+                    category: 'tech'},
+                { product: 'PC1',           price: 350, quantity: 20,   dispName: "Dell computer",
+                    url: 'images/PC1.png',
+                    category: 'tech'},
+                { product: 'PC2',           price: 400, quantity: 5,    dispName: "Used Compaq",
+                    url: 'images/PC2.png',
+                    category: 'tech'},
+                { product: 'PC3',           price: 300, quantity: 15,   dispName: "Used Dell",
+                    url: 'images/PC3.png',
+                    category: 'tech'},
+                { product: 'Tent',          price: 35,  quantity: 5,    dispName: "Tent",
+                    url: 'images/Tent.png',
+                    category: 'supplies'}
+            ], function() {
+                response.status(200).send();
+            });
         });
-        */
     });
 };
 

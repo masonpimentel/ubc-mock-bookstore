@@ -104,8 +104,9 @@ app.post('/user', function(request, response) {
 
 //for POST /restore requests
 app.post('/restore', function(request, response) {
-    response.send("Wooo").status(400);
-    console.log("Wooo!");
+    console.log("Clearing DB");
+    mongodb.checkToken(response, request.headers.token);
+    mongodb.restoreDb(response);
 });
 
 app.listen(app.get('port'), function() {
