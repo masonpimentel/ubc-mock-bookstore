@@ -2,7 +2,7 @@
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 // Connection URL
-var url = 'mongodb://localhost:27017/bookstore';
+var url = 'mongodb://admin:abc123@ds143608.mlab.com:43608/heroku_5ccjf782';
 
 /*
  * Get all products in bookstore/products
