@@ -17,8 +17,6 @@ var mongodb = require("./mongoDb.js");
 
 //for GET /product requests
 app.get('/products', function(request, response) {
-    //AJAX authentication
-    mongodb.checkToken(response, request.headers.token);
     mongodb.getProducts(response);
 });
 
