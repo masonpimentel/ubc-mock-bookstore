@@ -1,4 +1,4 @@
-db = db.getSiblingDB('heroku_5ccjf782');
+db = db.getSiblingDB('bookstore');
 
 var size = db.products.dataSize();
 if (size > 0) {
