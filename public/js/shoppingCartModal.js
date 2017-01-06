@@ -107,7 +107,10 @@ function createCartEntry(notEmpty, id, productName, price, quantity, product) {
         addCell = newModalRow.insertCell(-1);
         var addButton = document.createElement("BUTTON");
         addButton.appendChild(document.createTextNode("+"));
-        addButton.onclick = function() { addToCart(product); };
+        addButton.onclick = function() {
+            hideComplete();
+            addToCart(product);
+        };
         addButton.className = "addModal";
         addCell.appendChild(addButton);
 
@@ -115,7 +118,10 @@ function createCartEntry(notEmpty, id, productName, price, quantity, product) {
         removeCell = newModalRow.insertCell(-1);
         var removeButton = document.createElement("BUTTON");
         removeButton.appendChild(document.createTextNode("-"));
-        removeButton.onclick = function() { removeFromCart(product); };
+        removeButton.onclick = function() {
+            hideComplete();
+            removeFromCart(product);
+        };
         removeButton.className = "removeModal";
         removeCell.appendChild(removeButton);
 
@@ -137,12 +143,14 @@ function updateCartEntry(productName, newQuantity, newPrice) {
 
 //to close the modal
 closeButton.onclick = function() {
+    hideComplete();
     modal.style.display = "none";
 };
 
 //also close if user clicks anywhere outside of the modal
 window.onclick = function(event) {
     if (event.target == modal) {
+        hideComplete();
         modal.style.display = "none";
     }
 };
@@ -150,6 +158,7 @@ window.onclick = function(event) {
 //handler for esc key
 document.addEventListener('keyup', function(e) {
     if (e.keyCode == 27) {
+        hideComplete();
         modal.style.display = "none";
     }
 });
