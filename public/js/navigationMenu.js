@@ -1,4 +1,7 @@
 function confirmCartEmptied() {
+    if (purchaseLock) {
+        return false;
+    }
     if(totalCartValue() > 0) {
         return window.confirm("(Known limitation) Please note that your cart will be emptied. Proceed?");
     }

@@ -34,3 +34,6 @@ var RANDOM_STRING_LENGTH = 5;
 
 //maximum number of request attempts
 var AJAX_MAX_ATTEMPTS = 10;
+
+//quickfix to deal with request being made before purchase is complete
+var purchaseLock = false;

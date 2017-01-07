@@ -36,6 +36,7 @@ function ajaxRequest(type, attempts, filter) {
     var request = new XMLHttpRequest();
     request.timeout = REQUEST_TIMEOUT;
     if (type == "post") {
+        purchaseLock = true;
         request.open("POST", AJAX_URL + "/checkout");
         request.setRequestHeader("cartValue", totalCartValue());
     }
@@ -62,6 +63,7 @@ function ajaxRequest(type, attempts, filter) {
                 window.alert("AJAX request success!");
             }
             if (type == "post") {
+                purchaseLock = false;
                 //POST request - purchase
                 purchaseRequest();
             }
