@@ -1,35 +1,63 @@
-function removeFilter() {
-    ajaxRequest("filter", 0, "*");
+function confirmCartEmptied() {
+    if(totalCartValue() > 0) {
+        return window.confirm("(Known limitation) Please note that your cart will be emptied. Proceed?");
+    }
+    else {
+        return true;
+    }
+}
+
+function clearUpdateReset() {
+    clearCartAndRemoveButtons();
+    updateCartButton();
     resetTimer();
+}
+
+function removeFilter() {
+    if (confirmCartEmptied()) {
+        ajaxRequest("filter", 0, "*");
+        clearUpdateReset();
+    }
 }
 
 function booksFilter() {
-    ajaxRequest("filter", 0, "books");
-    resetTimer();
+    if (confirmCartEmptied()) {
+        ajaxRequest("filter", 0, "books");
+        clearUpdateReset();
+    }
 }
 
 function clothingFilter() {
-    ajaxRequest("filter", 0, "clothing");
-    resetTimer();
+    if (confirmCartEmptied()) {
+        ajaxRequest("filter", 0, "clothing");
+        clearUpdateReset();
+    }
 }
 
 function techFilter() {
-    ajaxRequest("filter", 0, "tech");
-    resetTimer();
+    if (confirmCartEmptied()) {
+        ajaxRequest("filter", 0, "tech");
+        clearUpdateReset();
+    }
 }
 
 function giftsFilter() {
-    ajaxRequest("filter", 0, "gifts");
-    resetTimer();
+    if (confirmCartEmptied()) {
+        ajaxRequest("filter", 0, "gifts");
+        clearUpdateReset();
+    }
 }
 
 function stationaryFilter() {
-    ajaxRequest("filter", 0, "stationary");
-    resetTimer();
+    if (confirmCartEmptied()) {
+        ajaxRequest("filter", 0, "stationary");
+        clearUpdateReset();
+    }
 }
 
 function suppliesFilter() {
-    ajaxRequest("filter", 0, "supplies");
-    resetTimer();
+    if (confirmCartEmptied()) {
+        ajaxRequest("filter", 0, "supplies");
+        clearUpdateReset();
+    }
 }
-
