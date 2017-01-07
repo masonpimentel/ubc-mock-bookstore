@@ -30,7 +30,7 @@ window.onclick = function(event) {
 
 //handler for esc key
 document.addEventListener('keyup', function(e) {
-    if (e.keyCode == 27) {
+    if (e.keyCode == 27 && username != "") {
         usernameModal.style.display = "none";
         randomUsername();
         initializeUserAndProducts();
