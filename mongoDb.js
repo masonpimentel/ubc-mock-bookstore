@@ -40,7 +40,6 @@ exports.getProductsRange = function(response, min, max) {
         col.find({price: { $gt: parseInt(min), $lt: parseInt(max) }}).toArray(function(err,docs) {
             if (err) {
                 response.status(500);
-                throw("error: " + err);
             }
             response.json(docs);
             db.close();
@@ -62,7 +61,6 @@ exports.getProductsFilter = function(response, filter) {
         col.find({category: filter}).toArray(function(err,docs) {
             if (err) {
                 response.status(500);
-                throw("error: " + err);
             }
             response.json(docs);
             db.close();
@@ -87,23 +85,19 @@ exports.updateProduct = function(response, item, subtraction) {
         col.find({product: item}).toArray(function(err,docs) {
             if (err) {
                 response.status(500).send();
-                throw("error: " + err);
             }
             origQuantity = docs[0].quantity;
             if (docs[1]) {
                 //should not be a duplicate...
                 response.status(500).send();
-                throw("error:  Found more than one of the same item in DB");
             }
             newQuantity = origQuantity - subtraction;
             if (newQuantity < 0) {
                 response.status(500).send();
-                throw("error: Woah, something blew up!!");
             }
             col.updateOne({product: item}, {$set:{quantity: newQuantity}}, function(err) {
                 if (err) {
                     response.status(500).send();
-                    throw("error: " + err);
                 }
                 //whew, made it!
                 //set the status code but don't worry about sending it yet
@@ -130,7 +124,6 @@ exports.addOrder = function(response, order, totalPrice) {
         col.insertOne({cart: jsonString, total: totalPrice}, function(err) {
             if (err) {
                 response.status(500);
-                throw("error: " + err);
             }
             //need this or request will be sent again
             else {
@@ -155,7 +148,6 @@ exports.addUser = function(response, token) {
         col.insertOne({token: token}, function(err) {
             if (err) {
                 response.status(500).send();
-                throw("error: " + err);
             }
             else {
                 response.status(200).send("OK");
@@ -181,7 +173,6 @@ exports.checkToken = function(response, token) {
         col.find({token: token}).toArray(function(err, doc) {
             if (err) {
                 response.status(500).send();
-                throw("error: " + err);
             }
             if (doc.length < 1) {
                 response.status(401).send();
