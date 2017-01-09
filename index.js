@@ -45,8 +45,6 @@ app.get('/products/range/:min-:max', function(request, response) {
 
 //for GET /filter requests
 app.get('/filter', function(request, response) {
-    //AJAX authentication
-    mongodb.checkToken(response, request.headers.token);
     var filter = request.headers.filter;
     //use wildcard to return all
     if (filter == "*") {
@@ -68,8 +66,6 @@ app.post('/checkout', function(request, response) {
     var cart;
     var subtraction;
     var totalPrice = request.headers.cartvalue;
-    //AJAX authentication
-    mongodb.checkToken(response, request.headers.token);
     //check if JSON
     if (request.is("application/json")) {
         cart = request.body;
@@ -103,7 +99,6 @@ app.post('/user', function(request, response) {
 //for POST /restore requests
 app.post('/restore', function(request, response) {
     console.log("Clearing DB");
-    mongodb.checkToken(response, request.headers.token);
     mongodb.restoreDb(response);
 });
 
