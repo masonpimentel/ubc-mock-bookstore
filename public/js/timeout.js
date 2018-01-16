@@ -1,9 +1,9 @@
 var inactiveTime = 0;
 
-document.getElementById("timerVal").style.color = "green";
-document.getElementById("timerVal").innerHTML = String(TIMEOUT_SEC);
+//document.getElementById("timerVal").style.color = "green";
+//document.getElementById("timerVal").innerHTML = String(TIMEOUT_SEC);
 
-var interval = setInterval(incrementInactiveTime, 1000);
+//var interval = setInterval(incrementInactiveTime, 1000);
 
 /*
  * Every 1000ms this function is called and inactiveTime is incremented

@@ -39,11 +39,11 @@ document.addEventListener('keyup', function(e) {
 
 function usernameSubmit() {
     //well.. i meant to just do this for fun but went a little overkill
-    var regex = /^([a-z0-9_-]){2,10}$/;
+    var regex = /^([a-zA-Z0-9_-]){2,10}$/;
     username = document.getElementById("uname").value;
     if (regex.test(username) == false) {
         //show tooltip
-        window.alert("Alphanumeric, 2 to 10 characters long, and lower case characters only please!");
+        window.alert("Alphanumeric, 2 to 10 characters long please!");
         return;
     }
     usernameModal.style.display = "none";

@@ -40,3 +40,7 @@ body {
 .col-100percent {
     width: 100%;
 }
+
+button:hover {
+    cursor:pointer;
+}

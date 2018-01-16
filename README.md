@@ -1,6 +1,8 @@
 # MockUBCBookstore
 
-Welcome! This is a mock bookstore web application I worked on in fourth year to increase my proficiency with client-side JavaScript, HTML5/CSS (pure, no frameworks!) as well as gain familiarity with server-side Node with Express 4 and MongoDB. 
+Welcome!<br>
+
+This is a mock bookstore web application I worked on in fourth year to increase my proficiency with client-side JavaScript, HTML5/CSS (with no frameworks) as well as gain familiarity with server-side NodeJS with Express 4 and MongoDB. 
 
 ## Adding a user
 
@@ -63,7 +65,9 @@ Add MongoDB\Server\3.2\bin to your PATH variable
 re-initialize the DB)
 4. Open another terminal,  and run ```npm start```
 
-Can now go to [localhost:5000](http://localhost:5000/) to access locally
+Can now go to [localhost:5000](http://localhost:5000/) to access locally.
+
+Note that there will not be any items in stock, so please click on the link at the bottom of the page to add the default quantities of all the products to the database.
 
 
 
