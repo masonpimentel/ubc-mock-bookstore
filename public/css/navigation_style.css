@@ -16,4 +16,5 @@
 
 #navigationMenu li:hover {
     background-color: #000051;
+    cursor:pointer;
 }
