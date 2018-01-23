@@ -20,10 +20,6 @@ var DEBUG_USERNAME = false;
 //the css for "remove" button
 var PRODUCTS_STYLESHEET = "products_style.css";
 
-//ajax url
-//port should be 5000
-var AJAX_URL = "https://ubcmockbookstore.herokuapp.com";
-
 //prompt for username at the beginning
 var PROMPT_USERNAME = true;
 
