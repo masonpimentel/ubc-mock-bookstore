@@ -19,7 +19,7 @@ function initializeUserAndProducts() {
     ajaxRequest("init", 0);
 }
 
-/* Creates an AJAX request to AJAX_URL
+/* Creates an AJAX request
  *
  * params:
  * type:        "post" for checkout process
@@ -33,26 +33,31 @@ function initializeUserAndProducts() {
  *              "category" property
  */
 function ajaxRequest(type, attempts, filter) {
+    var ajax_url = window.location.protocol + "//" + window.location.hostname;
+    var port = window.location.port;
+    if (port) {
+        ajax_url += ":" + port;
+    }
     var request = new XMLHttpRequest();
     request.timeout = REQUEST_TIMEOUT;
     if (type == "post") {
         purchaseLock = true;
-        request.open("POST", AJAX_URL + "/checkout");
+        request.open("POST", ajax_url + "/checkout");
         request.setRequestHeader("cartValue", totalCartValue());
     }
     else if (type == "username") {
-        request.open("POST", AJAX_URL + "/user");
+        request.open("POST", ajax_url + "/user");
     }
     else if (type == "filter") {
-        request.open("GET", AJAX_URL + "/filter");
+        request.open("GET", ajax_url + "/filter");
         request.setRequestHeader("filter", filter);
     }
     else if(type == "restore") {
         //zero security, but just here for demonstration purposes
-        request.open("POST", AJAX_URL + "/restore");
+        request.open("POST", ajax_url + "/restore");
     }
     else {
-        request.open("GET", AJAX_URL + "/products");
+        request.open("GET", ajax_url + "/products");
     }
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.setRequestHeader("Token", username);
