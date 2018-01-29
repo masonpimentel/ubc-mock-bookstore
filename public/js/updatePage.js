@@ -146,7 +146,17 @@ function hideRemoveButton(productName) {
 //restore the DB, for privileged users
 function restoreDb() {
     resetTimer();
-    ajaxRequest("restore", 0);
-    window.alert("Hi privileged user! We will now restore all the stock to their default quantities. Please" +
-        " refresh your browser when ready.");
+    var res = window.confirm("We will now restore all the stock to their default quantities. The page will reload" +
+        " once complete. Please confirm to proceed.");
+    if (res) {
+        clearProducts();
+        var loader = document.createElement("div");
+        var loaderEl = document.createElement("div");
+        loaderEl.id = 'dbLoader';
+        loader.innerHTML = "Please wait as the database is restored...";
+        loader.appendChild(loaderEl);
+        document.getElementById("productList").appendChild(loader);
+        ajaxRequest("restore", 0);
+    }
+
 }

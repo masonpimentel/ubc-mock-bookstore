@@ -77,6 +77,7 @@ function ajaxRequest(type, attempts, filter) {
             }
             else if (type == "restore") {
                 //POST request - restore
+                window.location.reload(true);
             }
             else if (type == "filter") {
                 //GET request - with filter
@@ -240,7 +241,7 @@ function updateRequest(result) {
                 //alert user if no longer in stock
                 if (newQuantity == 0) {
                     cart[itemProduct] = 0;
-                    res = noLongerInStock(item);
+                    res = noLongerInStock(itemProduct);
                     if (res == false) {
                         window.alert("Purchase cancelled.");
                         hideLoading();
@@ -254,7 +255,7 @@ function updateRequest(result) {
                 if (newQuantity - cart[itemProduct] < 0) {
                     var oldCartQ = cart[itemProduct];
                     cart[itemProduct] = newQuantity;
-                    res = differentQuantity(item, newQuantity, oldCartQ);
+                    res = differentQuantity(itemProduct, newQuantity, oldCartQ);
                     if (res == false) {
                         window.alert("Purchase cancelled.");
                         hideLoading();
@@ -266,7 +267,7 @@ function updateRequest(result) {
             }
             if (oldPrice != newPrice && newQuantity > 0) {
                 //refreshing the modal will update the price in the cart
-                res = differentPrice(item, newPrice, oldPrice);
+                res = differentPrice(itemProduct, newPrice, oldPrice);
                 if (res == false) {
                     window.alert("Purchase cancelled.");
                     hideLoading();
