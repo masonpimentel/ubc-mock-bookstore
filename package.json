@@ -1,6 +1,6 @@
 {
-  "name": "mock_ubc_bookstore",
-  "version": "0.2.0",
+  "name": "ubc_mock_bookstore",
+  "version": "1.0.0",
   "description": "Bookstore assignments",
   "main": "index.js",
   "scripts": {
