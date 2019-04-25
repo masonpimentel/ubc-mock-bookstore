@@ -1,8 +1,14 @@
 //set up mongo client
 var MongoClient = require('mongodb').MongoClient;
-var assert = require('assert');
-// Connection URL
-var url = 'mongodb://admin:PKkQQ0@ds143608.mlab.com:43608/heroku_5ccjf782';
+const assert = require('assert');
+const fs = require('fs');
+
+let rawconfig = fs.readFileSync('config.json');
+let config = JSON.parse(rawconfig);
+
+// Connection URI
+const uri = config["mongodb_uri"];
+console.log(uri);
 
 /*
  * Get all products in bookstore/products
@@ -10,7 +16,7 @@ var url = 'mongodb://admin:PKkQQ0@ds143608.mlab.com:43608/heroku_5ccjf782';
  * response: AJAX response
  */
 exports.getProducts = function(response) {
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(uri, function(err, db) {
         assert.equal(null, err);
         console.log("Serving a GET /products request");
 
@@ -33,7 +39,7 @@ exports.getProducts = function(response) {
  * max: maximum price
  */
 exports.getProductsRange = function(response, min, max) {
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(uri, function(err, db) {
         assert.equal(null, err);
         console.log("Serving a GET /products request with min price: " + min + ", max: " + max);
         var col = db.collection('products');
@@ -54,7 +60,7 @@ exports.getProductsRange = function(response, min, max) {
  * filter: filter to match category with
  */
 exports.getProductsFilter = function(response, filter) {
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(uri, function(err, db) {
         assert.equal(null, err);
         console.log("Serving a GET /filter request with filter: " + filter);
         var col = db.collection('products');
@@ -78,7 +84,7 @@ exports.getProductsFilter = function(response, filter) {
 exports.updateProduct = function(response, item, subtraction) {
     var origQuantity;
     var newQuantity;
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(uri, function(err, db) {
         assert.equal(null, err);
         console.log("Serving a POST /checkout request - updating DB");
         var col = db.collection('products');
@@ -116,7 +122,7 @@ exports.updateProduct = function(response, item, subtraction) {
  * totalPrice: total price value of the cart
  */
 exports.addOrder = function(response, order, totalPrice) {
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(uri, function(err, db) {
         assert.equal(null, err);
         console.log("Serving a POST /checkout request - adding order");
         var col = db.collection('orders');
@@ -141,7 +147,7 @@ exports.addOrder = function(response, order, totalPrice) {
  * token: username, i.e. the user's authentication token
  */
 exports.addUser = function(response, token) {
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(uri, function(err, db) {
         assert.equal(null, err);
         console.log("Serving a POST /user request");
         var col = db.collection('users');
@@ -166,7 +172,7 @@ exports.addUser = function(response, token) {
  */
 //assumption is that this is adequate for A5, and that proper
 exports.checkToken = function(response, token) {
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(uri, function(err, db) {
         assert.equal(null, err);
         console.log("Checking authentication");
         var col = db.collection('users');
@@ -189,7 +195,7 @@ exports.checkToken = function(response, token) {
  * token: username, i.e. the user's authentication token
  */
 exports.restoreDb = function(response) {
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(uri, function(err, db) {
         assert.equal(null, err);
         console.log("Deleting products");
         db.collection('products').remove(function(){
