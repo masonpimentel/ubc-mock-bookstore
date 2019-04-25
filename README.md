@@ -1,10 +1,14 @@
-# MockUBCBookstore
+# Undergrad Web Applications Project: UBC Mock Bookstore
 
-Welcome!<br>
+This is a mock bookstore NodeJS application I worked on in fourth year built using Express and MongoDB.
 
-This is a mock bookstore web application I worked on in fourth year to increase my proficiency with client-side JavaScript, HTML5/CSS (with no frameworks) as well as gain familiarity with server-side NodeJS with Express 4 and MongoDB.
+It is currently hosted on Heroku: https://ubcmockbookstore.herokuapp.com/ using a cloud hosted MongoDB database via [mLab](https://mlab.com)
 
-## Adding a user
+## Features
+
+These are the app features, along with how the relevant collections are affected.
+
+### Adding a user
 
 Upon entering the site, the user will be prompted for their username. This username will be added to the _users_ collection. A random one will be generated if the user decides to navigate away without entering one.  
 
@@ -14,7 +18,7 @@ Upon entering the site, the user will be prompted for their username. This usern
 
 <img src="https://github.com/snxfz947/MockBookstorePublic/blob/master/public/images/screen2.png"><br>_Username added_
 
-## Adding items to the cart
+### Adding items to the cart
 
 After entering a username, the user is presented with all the items in the mock UBC bookstore. 
 
@@ -34,7 +38,7 @@ To add an item, first hover over it to allow the "Add" button to appear.
 
 <img src="https://github.com/snxfz947/MockBookstorePublic/blob/master/public/images/screen3-2.png"><br>_After adding several items to the cart_
 
-## Checking out
+### Checking out
 
 To checkout, the user would click on "Checkout", then a check would be performed to make sure that the items are still in stock in the database, and after the user would be able to click on "Complete purchase". After this, the _orders_ and _products_ collections are updated accordingly.
 
@@ -46,6 +50,25 @@ To checkout, the user would click on "Checkout", then a check would be performed
 
 <img src="https://github.com/snxfz947/MockBookstorePublic/blob/master/public/images/screen8.png"><br>_Updated "orders" collection_
 
+### Restoring items
+
+As a feature for demonstration purposes, the user can restore all the items to their default quantities by clicking on a link at the bottom of the page.
+
+<img src="https://github.com/snxfz947/MockBookstorePublic/blob/master/public/images/screen9.png"><br>_Link to restore the item quantities_
 
 
+## Heroku deployment instructions
 
+Heroku completely handles building the app, all you need to do is push to the Heroku remote. 
+
+After provisioning the mLab add-on which can be done through the Heroku dashboard, to find the connection URI, use the command:
+
+```
+heroku config:get MONGODB_URI
+```
+
+Enter this in the `config.json` file.
+
+Full instructions can be found here: https://devcenter.heroku.com/articles/mongolab#adding-mlab-as-a-heroku-add-on
+
+After filling in the URI in `config.json`, go ahead and push to Heroku, and the build process will be automatically taken care of. Note that of course, you wouldn't commit the changes to `config.json` to any public repository (like Github) but you'll have to include it in the Heroku build so the correct database configuration will be used.
